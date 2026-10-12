@@ -252,9 +252,9 @@ extension SyncEngine {
         let (answered, initial) = await fanOut(filterPeers(), "filter header anchor") { try await self.requestFilterAnchor($0) }
         let inPool = Set(poolPeers().map(\.address))
         let list = manager.withLock { $0.candidates.filter { !inPool.contains($0) } }
-        let votes = Mutex(initial)
-        let dialed = Mutex(0)
-        let next = Mutex(0)
+        let votes = Locked(initial)
+        let dialed = Locked(0)
+        let next = Locked(0)
         let limit = SyncEngine.anchorPeerLimit
         await withTaskGroup(of: Void.self) { group in
             for _ in 0..<SyncEngine.anchorDialers {

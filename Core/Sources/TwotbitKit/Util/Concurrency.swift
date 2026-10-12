@@ -41,6 +41,19 @@ extension Duration {
     }
 }
 
+/// Locked is a Mutex shared by reference, for a local value the child tasks
+/// of a task group update together: the Swift of Xcode 16 and 26 refuses a
+/// local Mutex captured by a task group's addTask closure.
+final class Locked<Value: Sendable>: Sendable {
+    private let mutex: Mutex<Value>
+
+    init(_ value: Value) { mutex = Mutex(value) }
+
+    func withLock<R, E: Error>(_ body: (inout sending Value) throws(E) -> sending R) throws(E) -> sending R {
+        try mutex.withLock(body)
+    }
+}
+
 /// Mailbox hands the messages a peer delivers to the request waiting for
 /// them, buffering those that arrive first, like a Go channel.
 final class Mailbox<T: Sendable>: Sendable {
@@ -216,7 +229,7 @@ final class Pulse: Sendable {
     /// whether a signal came, false on timeout or cancellation.
     func wait(timeout: Duration? = nil) async -> Bool {
         if let timeout {
-            let woken = Mutex(false)
+            let woken = Locked(false)
             await withTaskGroup(of: Void.self) { group in
                 group.addTask {
                     let got = await self.wait(timeout: nil)

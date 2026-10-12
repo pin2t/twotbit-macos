@@ -47,7 +47,7 @@ extension SyncEngine {
             Log.info("peer discovery: \(error)")
             return
         }
-        let next = Mutex(0)
+        let next = Locked(0)
         await withTaskGroup(of: Void.self) { group in
             for _ in 0..<SyncEngine.connectWorkers {
                 group.addTask {
