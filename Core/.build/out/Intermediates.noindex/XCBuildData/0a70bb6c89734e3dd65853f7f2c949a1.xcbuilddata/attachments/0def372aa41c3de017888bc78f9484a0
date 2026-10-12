@@ -1,0 +1,226 @@
+{
+  "" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary.dia",
+    "emit-module-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary-emit-module.dia",
+    "pch" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary.swiftdeps"
+  },
+  "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Address.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Address.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Address.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Address.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Hash256.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Hash256.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Hash256.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Hash256.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Network.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Network.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Network.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Network.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Primitives.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Primitives.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Primitives.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Primitives.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Script.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Script.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Script.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Script.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/UInt256.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/UInt256.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/UInt256.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/UInt256.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Crypto/Hashes.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Hashes.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Hashes.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Hashes.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Crypto/Secp256k1.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Encoding/Encodings.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Encodings.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Encodings.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Encodings.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Format/Format.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Format.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Format.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Format.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Format/QRCode.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/QRCode.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/QRCode.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/QRCode.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/I2PSeeds.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/Messages.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Messages.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Messages.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Messages.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/OnionSeeds.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/OverlayNetwork.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/Overlays.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Overlays.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Overlays.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Overlays.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/PeerAddress.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/PeerConnection.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/TCPStream.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Rates/Rates.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Rates.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Rates.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Rates.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/SPV/Filters.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Filters.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Filters.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Filters.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/SPV/HeaderChain.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Storage/SQLite.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SQLite.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SQLite.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SQLite.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Storage/SecretStore.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Storage/Store.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Store.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Store.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Store.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/FilterSync.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/HeaderSync.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/PeerPool.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/PeerProbe.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/Requests.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Requests.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Requests.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Requests.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/Rescan.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Rescan.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Rescan.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Rescan.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/SyncEngine.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/WalletSync.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Bytes.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Bytes.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Bytes.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Bytes.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Concurrency.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Extensions.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Extensions.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Extensions.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Extensions.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Log.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Log.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Log.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Log.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/BIP32.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP32.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP32.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP32.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/BIP39.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP39.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP39.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP39.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/BIP39Words.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/HDWallet.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.o"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/Spend.swift" : {
+    "index-unit-output-path" : "/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Spend.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Spend.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Release/TwotbitKit-t.build/Objects-normal/arm64/Spend.o"
+  }
+}

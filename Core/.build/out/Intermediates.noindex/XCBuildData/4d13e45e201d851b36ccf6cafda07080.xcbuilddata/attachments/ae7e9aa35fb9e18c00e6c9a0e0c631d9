@@ -1,0 +1,439 @@
+{
+  "" : {
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary.dia",
+    "emit-module-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary-emit-module.dia",
+    "pch" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TwotbitKit-primary.swiftdeps"
+  },
+  "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/resource_bundle_accessor~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Address.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Address~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Hash256.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hash256~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Network.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Network~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Primitives.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Primitives~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/Script.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Script~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Bitcoin/UInt256.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/UInt256~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Crypto/Hashes.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Hashes~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Crypto/Secp256k1.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Secp256k1~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Encoding/Encodings.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Encodings~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Format/Format.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Format~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Format/QRCode.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/QRCode~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/I2PSeeds.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/I2PSeeds~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/Messages.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Messages~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/OnionSeeds.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OnionSeeds~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/OverlayNetwork.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/OverlayNetwork~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/Overlays.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Overlays~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/PeerAddress.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerAddress~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/PeerConnection.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerConnection~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/P2P/TCPStream.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/TCPStream~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Rates/Rates.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rates~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/SPV/Filters.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Filters~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/SPV/HeaderChain.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderChain~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Storage/SQLite.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SQLite~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Storage/SecretStore.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SecretStore~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Storage/Store.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Store~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/FilterSync.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/FilterSync~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/HeaderSync.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HeaderSync~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/PeerPool.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerPool~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/PeerProbe.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/PeerProbe~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/Requests.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Requests~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/Rescan.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Rescan~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/SyncEngine.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/SyncEngine~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Sync/WalletSync.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/WalletSync~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Bytes.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Bytes~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Concurrency.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Concurrency~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Extensions.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Extensions~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Util/Log.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Log~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/BIP32.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP32~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/BIP39.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/BIP39Words.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/BIP39Words~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/HDWallet.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/HDWallet~partial.swiftmodule"
+  },
+  "/Users/pin/code/twotbit/Core/Sources/TwotbitKit/Wallet/Spend.swift" : {
+    "const-values" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend.swiftconstvalues",
+    "dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend.d",
+    "diagnostics" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend.dia",
+    "index-unit-output-path" : "/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend.o",
+    "llvm-bc" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend.bc",
+    "object" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend.o",
+    "swift-dependencies" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend.swiftdeps",
+    "swiftmodule" : "/Users/pin/code/twotbit/Core/.build/out/Intermediates.noindex/TwotbitCore.build/Debug/TwotbitKit-t.build/Objects-normal/arm64/Spend~partial.swiftmodule"
+  }
+}

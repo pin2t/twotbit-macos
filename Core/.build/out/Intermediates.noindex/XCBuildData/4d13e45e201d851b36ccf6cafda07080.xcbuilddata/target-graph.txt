@@ -1,0 +1,23 @@
+Target dependency graph (7 targets)
+Target 'AllIncludingTests' in project 'Aggregate'
+➜ Explicit dependency on target 'TwotbitKitTests-product' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitCore_TwotbitKitTests' in project 'TwotbitCore'
+➜ Dependency on target 'TwotbitKitTests-product' in project 'TwotbitCore' via transitive dependency through 'TwotbitKitTests-test-runner'
+➜ Explicit dependency on target 'TwotbitKit-product' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitKit' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitCore_TwotbitKit' in project 'TwotbitCore'
+➜ Explicit dependency on target 'CSecp256k1' in project 'TwotbitCore'
+Target 'TwotbitKit-product' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitKit' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitCore_TwotbitKit' in project 'TwotbitCore'
+➜ Explicit dependency on target 'CSecp256k1' in project 'TwotbitCore'
+Target 'TwotbitKitTests-product' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitCore_TwotbitKitTests' in project 'TwotbitCore'
+➜ Explicit dependency on target 'CSecp256k1' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitKit' in project 'TwotbitCore'
+Target 'TwotbitKit' in project 'TwotbitCore'
+➜ Explicit dependency on target 'TwotbitCore_TwotbitKit' in project 'TwotbitCore'
+➜ Explicit dependency on target 'CSecp256k1' in project 'TwotbitCore'
+Target 'TwotbitCore_TwotbitKit' in project 'TwotbitCore' (no dependencies)
+Target 'CSecp256k1' in project 'TwotbitCore' (no dependencies)
+Target 'TwotbitCore_TwotbitKitTests' in project 'TwotbitCore' (no dependencies)

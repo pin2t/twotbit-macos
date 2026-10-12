@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/pin/code/twotbit/Core/.build/out/Products/Release/TwotbitKitTests.xctest/Contents/MacOS/TwotbitKitTests'
+relocations:     []
+...

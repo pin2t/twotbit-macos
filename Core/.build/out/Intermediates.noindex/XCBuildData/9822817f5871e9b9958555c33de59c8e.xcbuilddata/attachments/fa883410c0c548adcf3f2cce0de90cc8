@@ -1,0 +1,4 @@
+module CSecp256k1 {
+umbrella "/Users/pin/code/twotbit/macos/Core/Sources/CSecp256k1/include"
+export *
+}
