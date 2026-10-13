@@ -93,6 +93,14 @@ import Testing
         for (room, want) in cases { #expect(Format.fitAddress(address) { $0.count <= room } == want, "room \(room)") }
     }
 
+    @Test func groupAddresses() {
+        #expect(Format.groupAddress("bc1q0r80j388qfu32q67u6zjx3lhm9wsf07gryt4xl") == "bc1q0r 80j3 88qf u32q 67u6 zjx3 lhm9 wsf0 7gry t4xl")
+        #expect(Format.groupAddress("abcdefgh") == "abcd efgh")
+        #expect(Format.groupAddress("abcdefghi") == "abcde fghi")
+        #expect(Format.groupAddress("abcd") == "abcd")
+        #expect(Format.groupAddress("") == "")
+    }
+
     /// A receive, a payment with change, a payment between the wallet's own
     /// addresses, and a spend of wallet coins the wallet did not pay alone.
     @Test func stats() {
@@ -170,6 +178,23 @@ import Testing
             let code = try #require(QRCode(text))
             #expect(code.isUpright, "\(text)")
             let image = try #require(code.image(scale: 8))
+            let found = detector.features(in: CIImage(cgImage: image)).compactMap { ($0 as? CIQRCodeFeature)?.messageString }
+            #expect(found == [text])
+        }
+    }
+
+    /// Codes at level Q still read with their middle cleared for the logo.
+    @Test func decodesUnderLogo() throws {
+        let texts = [
+            "bitcoin:bc1qcr8te4kr609gcawutmrza0j4xv80jy8z306fyu",
+            "bitcoin:tb1q6rz28mcfaxtmd6v789l9rrlrusdprr9pqcpvkl?amount=21000000",
+        ]
+        let detector = try #require(CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh]))
+        for text in texts {
+            let code = try #require(QRCode(text, correction: "Q"))
+            let hole = code.center(0.24)
+            #expect(hole.count >= 7 && (code.size - hole.count) % 2 == 0, "\(text)")
+            let image = try #require(code.image(scale: 8, hole: hole))
             let found = detector.features(in: CIImage(cgImage: image)).compactMap { ($0 as? CIQRCodeFeature)?.messageString }
             #expect(found == [text])
         }

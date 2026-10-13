@@ -174,6 +174,22 @@ public enum Format {
         return "less than a minute"
     }
 
+    /// The address in groups of four characters counted from its end, for
+    /// reading it out: the characters left over join the first group, so
+    /// it alone may be longer, as in "bc1q0r 80j3 88qf … t4xl".
+    public static func groupAddress(_ address: String) -> String {
+        let chars = Array(address)
+        guard chars.count > 4 else { return address }
+        let rest = chars.count % 4
+        var groups = [String(chars[..<(rest == 0 ? 4 : rest + 4)])]
+        var i = groups[0].count
+        while i < chars.count {
+            groups.append(String(chars[i..<i + 4]))
+            i += 4
+        }
+        return groups.joined(separator: " ")
+    }
+
     /// The address shortened to its start and its last six characters
     /// around an ellipsis when longer than the room: the start as long as
     /// fits, at least five characters, "bc1q" and one more, or else
