@@ -29,7 +29,7 @@ struct P2PFixture: Decodable {
             #expect(header.command == v.command)
             let payload = frame.dropFirst(Wire.headerSize)
             #expect(header.length == payload.count)
-            #expect(Wire.checksumMatches(header, payload: Data(payload)))
+            #expect(header.checksumMatches(payload: Data(payload)))
             let message = try Message.decode(command: header.command, payload: Data(payload))
             #expect(Wire.frame(message, magic: header.magic) == frame, "\(v.name)")
         }
@@ -90,7 +90,7 @@ struct P2PFixture: Decodable {
             return
         }
         #expect(list.map(\.host) == ["192.0.2.1", "2001:db8::7", list[2].host])
-        #expect(Onion.isOnion(list[2].host ?? ""))
+        #expect((list[2].host ?? "").isOnion)
         guard case .addr(let legacy) = try Message.decode(command: "addr", payload: vector("addr").dropFirst(24)) else {
             Issue.record("not addr")
             return
@@ -101,42 +101,42 @@ struct P2PFixture: Decodable {
 
     @Test func hostsAndOnions() {
         for v in Self.fixture.hosts {
-            #expect(Onion.isOnion(v.host) == v.onion, "\(v.host)")
-            #expect(Onion.isI2P(v.host) == v.i2p, "\(v.host)")
+            #expect(v.host.isOnion == v.onion, "\(v.host)")
+            #expect(v.host.isI2P == v.i2p, "\(v.host)")
             #expect(OverlayNetwork.of(v.host).description == v.network)
         }
         for v in Self.fixture.onions {
-            #expect(Onion.address(key: Data(h: v.key)) == v.address)
-            #expect(Onion.key(of: v.address)?.hex == v.key)
+            #expect(Data(h: v.key).onionAddress == v.address)
+            #expect(v.address.onionKey?.hex == v.key)
         }
         #expect(Seeds.onion.map(\.host) == Self.fixture.onionSeeds.map(\.host))
         #expect(Seeds.i2p.map(\.host) == Self.fixture.i2pSeeds.map(\.host))
-        #expect(Seeds.onion.allSatisfy { Onion.isOnion($0.host) })
-        #expect(Seeds.i2p.allSatisfy { Onion.isI2P($0.host) })
+        #expect(Seeds.onion.allSatisfy { ($0.host).isOnion })
+        #expect(Seeds.i2p.allSatisfy { ($0.host).isI2P })
     }
 
     @Test func hostPorts() throws {
-        #expect(try HostPort.split("1.2.3.4:8333") == ("1.2.3.4", 8333))
-        #expect(try HostPort.split("[2001:db8::1]:18333") == ("2001:db8::1", 18333))
-        #expect(try HostPort.split("seed.example:1") == ("seed.example", 1))
+        #expect(try "1.2.3.4:8333".splitHostPort() == ("1.2.3.4", 8333))
+        #expect(try "[2001:db8::1]:18333".splitHostPort() == ("2001:db8::1", 18333))
+        #expect(try "seed.example:1".splitHostPort() == ("seed.example", 1))
         for bad in ["1.2.3.4", "2001:db8::1:8333", "[::1]", "[::1]x:1", "host:", "host:99999", "host:-1", "host:+1"] {
-            #expect(throws: HostPortError.self, "\(bad)") { try HostPort.split(bad) }
+            #expect(throws: HostPortError.self, "\(bad)") { try bad.splitHostPort() }
         }
-        #expect(HostPort.join("2001:db8::1", 8333) == "[2001:db8::1]:8333")
-        #expect(HostPort.join("1.2.3.4", 8333) == "1.2.3.4:8333")
+        #expect("2001:db8::1".withPort(8333) == "[2001:db8::1]:8333")
+        #expect("1.2.3.4".withPort(8333) == "1.2.3.4:8333")
         #expect(PeerAddress(host: "x.onion", port: 8333).description == "x.onion:8333")
     }
 
     @Test func ipAddresses() {
-        #expect(IPAddress.canonical("1.2.3.4") == "1.2.3.4")
-        #expect(IPAddress.canonical("::ffff:1.2.3.4") == "1.2.3.4")
-        #expect(IPAddress.canonical("2001:0db8:0000:0000:0000:0000:0000:0001") == "2001:db8::1")
-        #expect(IPAddress.canonical("2001:db8:0:1:0:0:0:1") == "2001:db8:0:1::1")
-        #expect(IPAddress.canonical("2001:db8:0:1:1:1:1:1") == "2001:db8:0:1:1:1:1:1")
-        #expect(IPAddress.canonical("::") == "::")
-        #expect(IPAddress.canonical("::1") == "::1")
-        #expect(IPAddress.canonical("1.2.3") == nil)
-        #expect(IPAddress.canonical("example.com") == nil)
-        #expect(IPAddress.canonical("1.2.3.256") == nil)
+        #expect("1.2.3.4".canonicalIP == "1.2.3.4")
+        #expect("::ffff:1.2.3.4".canonicalIP == "1.2.3.4")
+        #expect("2001:0db8:0000:0000:0000:0000:0000:0001".canonicalIP == "2001:db8::1")
+        #expect("2001:db8:0:1:0:0:0:1".canonicalIP == "2001:db8:0:1::1")
+        #expect("2001:db8:0:1:1:1:1:1".canonicalIP == "2001:db8:0:1:1:1:1:1")
+        #expect("::".canonicalIP == "::")
+        #expect("::1".canonicalIP == "::1")
+        #expect("1.2.3".canonicalIP == nil)
+        #expect("example.com".canonicalIP == nil)
+        #expect("1.2.3.256".canonicalIP == nil)
     }
 }

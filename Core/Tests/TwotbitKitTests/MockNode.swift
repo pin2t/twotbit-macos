@@ -100,7 +100,7 @@ final class MockNode: Sendable {
         for script in scripts where !unique.contains(script) { unique.append(script) }
         let filter = GCSFilter.build(items: unique, blockHash: block.hash)
         let prev = s.filterHeaders.last ?? .zero
-        s.filterHeaders.append(GCSFilter.header(filterHash: GCSFilter.hash(filter), previous: prev))
+        s.filterHeaders.append(filter.filterHash.filterHeader(previous: prev))
         s.filters.append(filter)
         for tx in block.transactions {
             for input in tx.inputs { s.utxos.removeValue(forKey: input.previousOutPoint) }
@@ -166,7 +166,7 @@ final class MockNode: Sendable {
                 send(.headers(s.blocks[(start + 1)...].prefix(2000).map(\.header)))
             case let .getCFHeaders(start, stop):
                 guard let end = s.blocks.firstIndex(where: { $0.hash == stop }), Int(start) <= end else { continue }
-                let hashes = (Int(start)...end).map { GCSFilter.hash(s.wrongFilters[Int32($0)] ?? s.filters[$0]) }
+                let hashes = (Int(start)...end).map { (s.wrongFilters[Int32($0)] ?? s.filters[$0]).filterHash }
                 let prev = start == 0 ? Hash256.zero : s.filterHeaders[Int(start) - 1]
                 send(.cfHeaders(CFHeaders(filterType: 0, stopHash: stop, prevFilterHeader: prev, filterHashes: hashes)))
             case let .getCFilters(start, stop):
@@ -225,14 +225,14 @@ struct ChainBuilder {
             coinbase.inputs[0].witness = [Data(count: 32)]
             var wtxids = [Hash256.zero] + txs.map(\.wtxid)
             wtxids[0] = .zero
-            var preimage = Block.merkleRoot(wtxids).data
+            var preimage = wtxids.merkleRoot().data
             preimage.append(Data(count: 32))
-            coinbase.outputs.append(TxOut(value: 0, pkScript: Data(Block.witnessMagic) + Hashes.sha256d(preimage).data))
+            coinbase.outputs.append(TxOut(value: 0, pkScript: Data(Block.witnessMagic) + preimage.sha256d().data))
         }
         let all = [coinbase] + txs
-        var header = BlockHeader(version: 0x2000_0000, prevBlock: tip.hash, merkleRoot: Block.merkleRoot(all.map(\.txid)),
+        var header = BlockHeader(version: 0x2000_0000, prevBlock: tip.hash, merkleRoot: all.map(\.txid).merkleRoot(),
                                  timestamp: time, bits: 0x207f_ffff, nonce: 0)
-        let target = Compact.target(header.bits)!
+        let target = header.bits.compactTarget!
         while UInt256(header.hash) > target { header.nonce += 1 }
         tip = header
         time += 600

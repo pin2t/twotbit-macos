@@ -10,18 +10,6 @@ public enum PeerProbe {
         public var description: String { "\(address): no compact filter service" }
     }
 
-    /// Reads a peer typed as an IP address with a port, or without one,
-    /// which takes the network's default port, and returns it in host:port
-    /// form; nil for anything else.
-    public static func parse(_ text: String, defaultPort: UInt16) -> String? {
-        var bare = text
-        if bare.hasPrefix("[") && bare.hasSuffix("]") { bare = String(bare.dropFirst().dropLast()) }
-        if let ip = IPAddress.canonical(bare) { return HostPort.join(ip, defaultPort) }
-        guard let (host, port) = try? HostPort.splitRaw(text), let ip = IPAddress.canonical(host),
-              !port.isEmpty, port.allSatisfy(\.isASCIIDigit), let num = UInt16(port), num != 0 else { return nil }
-        return HostPort.join(ip, num)
-    }
-
     /// Connects directly to the peer, completes the handshake and checks it
     /// serves compact filters, then disconnects.
     public static func probe(network: Network, address: String) async throws {
@@ -48,5 +36,19 @@ public enum PeerProbe {
         default:
             return "no handshake"
         }
+    }
+}
+
+extension String {
+    /// The peer typed as an IP address with a port, or without one, which
+    /// takes the network's default port, in canonical host:port form; nil
+    /// for anything else.
+    public func peerAddress(defaultPort: UInt16) -> String? {
+        var bare = self
+        if bare.hasPrefix("[") && bare.hasSuffix("]") { bare = String(bare.dropFirst().dropLast()) }
+        if let ip = bare.canonicalIP { return ip.withPort(defaultPort) }
+        guard let (host, port) = try? splitHostPortRaw(), let ip = host.canonicalIP,
+              !port.isEmpty, port.allSatisfy(\.isASCIIDigit), let num = UInt16(port), num != 0 else { return nil }
+        return ip.withPort(num)
     }
 }

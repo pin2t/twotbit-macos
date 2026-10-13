@@ -169,14 +169,7 @@ public struct HeaderChain: Sendable {
     public func work(above height: Int32) -> Double {
         let start = max(Int(height) + 1, 0)
         guard start < entries.count else { return 0 }
-        return entries[start...].reduce(0) { $0 + HeaderChain.work(bits: $1.bits) }
-    }
-
-    /// The proof of work of one block of the bits.
-    public static func work(bits: UInt32) -> Double {
-        guard let target = Compact.target(bits) else { return 0 }
-        let t = Double(target.l3) * 0x1p192 + Double(target.l2) * 0x1p128 + Double(target.l1) * 0x1p64 + Double(target.l0)
-        return 0x1p256 / (t + 1)
+        return entries[start...].reduce(0) { $0 + ($1.bits).compactWork }
     }
 
     /// The median time of the last eleven blocks.
@@ -190,7 +183,7 @@ public struct HeaderChain: Sendable {
     /// network's limit, as Bitcoin Core's CheckProofOfWork does.
     func checkProofOfWork(_ header: BlockHeader, hash: Hash256) throws {
         guard header.bits != 0 else { throw ChainError("zero difficulty bits") }
-        guard let target = Compact.target(header.bits), !target.isZero else {
+        guard let target = header.bits.compactTarget, !target.isZero else {
             throw ChainError("invalid difficulty bits \(String(header.bits, radix: 16))")
         }
         guard target <= network.powLimit else {
@@ -254,9 +247,9 @@ public struct HeaderChain: Sendable {
     /// four either way and to the network's limit.
     public static func nextRetargetBits(first: Int64, last: Int64, oldBits: UInt32, network: Network) -> UInt32 {
         let actual = min(max(last - first, retargetTimespan / 4), retargetTimespan * 4)
-        guard let old = Compact.target(oldBits) else { return network.powLimitBits }
+        guard let old = oldBits.compactTarget else { return network.powLimitBits }
         var target = old.scaled(by: UInt64(actual), dividedBy: UInt64(retargetTimespan))
         if target > network.powLimit { target = network.powLimit }
-        return Compact.bits(target)
+        return target.compactBits
     }
 }

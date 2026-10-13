@@ -43,10 +43,10 @@ let outside = Script.p2wpkh(Data(repeating: 0x42, count: 20))
             #expect(SyncEngine.spentAddress(Data(h: v.sigScript), witness, .mainnet) == v.address, "\(v.sigScript) \(v.witness ?? [])")
         }
         for v in Self.fixture.scriptAddresses {
-            #expect((Address.of(script: Data(h: v.script), network: .mainnet) ?? "") == v.address, "\(v.script)")
+            #expect((Data(h: v.script).address(network: .mainnet) ?? "") == v.address, "\(v.script)")
         }
         for v in Self.fixture.testnetScriptAddresses {
-            #expect((Address.of(script: Data(h: v.script), network: .testnet3) ?? "") == v.address, "\(v.script)")
+            #expect((Data(h: v.script).address(network: .testnet3) ?? "") == v.address, "\(v.script)")
         }
     }
 
@@ -83,9 +83,9 @@ let outside = Script.p2wpkh(Data(repeating: 0x42, count: 20))
         for v in Self.fixture.majority {
             let votes = (v.votes ?? []).map { Hash256(hex: $0)! }
             if v.error {
-                #expect(throws: PeerError.self) { try SyncEngine.majorityAnchor(votes) }
+                #expect(throws: PeerError.self) { try votes.majorityAnchor() }
             } else {
-                #expect(try SyncEngine.majorityAnchor(votes).hex == v.anchor)
+                #expect(try votes.majorityAnchor().hex == v.anchor)
             }
         }
     }

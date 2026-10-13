@@ -15,7 +15,7 @@ public struct ExtendedKey: Sendable {
     /// "Bitcoin seed".
     public static func master(seed: Data) throws -> ExtendedKey {
         guard seed.count >= 16, seed.count <= 64 else { throw KeyError.invalidSeed }
-        let i = Hashes.hmacSHA512(key: Data("Bitcoin seed".utf8), data: seed)
+        let i = seed.hmacSHA512(key: Data("Bitcoin seed".utf8))
         let key = i.prefix(32)
         guard Secp256k1.isValidPrivateKey(Data(key)) else { throw KeyError.invalidSeed }
         return ExtendedKey(privateKey: Data(key), chainCode: Data(i.suffix(32)), depth: 0, parentFingerprint: 0, childNumber: 0)
@@ -30,7 +30,7 @@ public struct ExtendedKey: Sendable {
     /// The first four bytes of the public key's HASH160, which children
     /// name their parent by.
     public var fingerprint: UInt32 {
-        let h = Hashes.hash160(publicKey)
+        let h = publicKey.hash160()
         return h.prefix(4).reduce(0) { $0 << 8 | UInt32($1) }
     }
 
@@ -45,7 +45,7 @@ public struct ExtendedKey: Sendable {
             data.append(publicKey)
         }
         withUnsafeBytes(of: index.bigEndian) { data.append(contentsOf: $0) }
-        let i = Hashes.hmacSHA512(key: chainCode, data: data)
+        let i = data.hmacSHA512(key: chainCode)
         let child = try Secp256k1.tweakAdd(privateKey: privateKey, tweak: Data(i.prefix(32)))
         return ExtendedKey(privateKey: child, chainCode: Data(i.suffix(32)), depth: depth &+ 1, parentFingerprint: fingerprint, childNumber: index)
     }
@@ -65,19 +65,21 @@ public struct ExtendedKey: Sendable {
         withUnsafeBytes(of: childNumber.bigEndian) { data.append(contentsOf: $0) }
         data.append(chainCode)
         data.append(publicKey)
-        return Base58.encodeCheck(data)
+        return data.base58ChecksumEncoded()
     }
+}
 
-    /// Parses a derivation path such as m/84'/0'/0'/1/3 into its indexes,
+extension String {
+    /// The indexes of a derivation path such as m/84'/0'/0'/1/3,
     /// each below 2^31 before hardening.
-    public static func parsePath(_ path: String) throws -> [UInt32] {
-        let parts = path.split(separator: "/", omittingEmptySubsequences: false)
-        guard parts.count >= 2, parts[0] == "m" else { throw KeyError.invalidPath(path) }
+    public func derivationPath() throws -> [UInt32] {
+        let parts = split(separator: "/", omittingEmptySubsequences: false)
+        guard parts.count >= 2, parts[0] == "m" else { throw KeyError.invalidPath(self) }
         return try parts.dropFirst().map { part in
             let isHardened = part.hasSuffix("'")
             let digits = isHardened ? part.dropLast() : part
             guard !digits.isEmpty, digits.allSatisfy(\.isASCIIDigit), let n = UInt32(digits), n < ExtendedKey.hardened else {
-                throw KeyError.invalidPath(path)
+                throw KeyError.invalidPath(self)
             }
             return isHardened ? n + ExtendedKey.hardened : n
         }

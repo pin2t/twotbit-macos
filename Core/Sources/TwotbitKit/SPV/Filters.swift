@@ -23,14 +23,10 @@ public struct GCSFilter: Sendable {
         bits = try reader.readByteArray(reader.remaining)
     }
 
-    /// The SipHash key of a block's filter: the first half of the block
-    /// hash in internal byte order.
-    public static func key(blockHash: Hash256) -> (UInt64, UInt64) { (blockHash.w0, blockHash.w1) }
-
     /// The item mapped into [0, n·M) by the fast range reduction of its
     /// SipHash.
     static func map(_ item: Data, key: (UInt64, UInt64), modulus: UInt64) -> UInt64 {
-        SipHash.hash(k0: key.0, k1: key.1, [UInt8](item)).multipliedFullWidth(by: modulus).high
+        [UInt8](item).sipHash(k0: key.0, k1: key.1).multipliedFullWidth(by: modulus).high
     }
 
     /// Reports which of the items are in the filter of the block, in one
@@ -39,7 +35,7 @@ public struct GCSFilter: Sendable {
         var hits = [Bool](repeating: false, count: items.count)
         guard n > 0, !items.isEmpty else { return hits }
         let modulus = n * GCSFilter.m
-        let key = GCSFilter.key(blockHash: blockHash)
+        let key = blockHash.filterKey
         let targets = items.enumerated().map { (value: GCSFilter.map($0.element, key: key, modulus: modulus), index: $0.offset) }
             .sorted { $0.value < $1.value }
         var reader = BitReader(bits)
@@ -65,7 +61,7 @@ public struct GCSFilter: Sendable {
         var writer = ByteWriter()
         writer.writeVarInt(UInt64(items.count))
         let modulus = UInt64(items.count) * m
-        let key = key(blockHash: blockHash)
+        let key = blockHash.filterKey
         let values = items.map { map($0, key: key, modulus: modulus) }.sorted()
         var bitWriter = BitWriter()
         var last: UInt64 = 0
@@ -80,23 +76,31 @@ public struct GCSFilter: Sendable {
         return writer.data
     }
 
-    /// The double SHA256 of a serialized filter, which cfheaders messages
-    /// list and the filter header chain commits to.
-    public static func hash(_ serialized: Data) -> Hash256 { Hashes.sha256d(serialized) }
-
-    /// The filter header chaining a filter hash to the previous header:
-    /// SHA256d(filter hash || previous header), per BIP157. The genesis
-    /// filter chains to the null hash.
-    public static func header(filterHash: Hash256, previous: Hash256) -> Hash256 {
-        var data = filterHash.data
-        previous.append(to: &data)
-        return Hashes.sha256d(data)
-    }
-
     /// Decodes a serialized filter and reports which scripts are in it.
     public static func matchScripts(_ serialized: Data, blockHash: Hash256, scripts: [Data]) throws -> [Bool] {
         try GCSFilter(serialized: serialized).match(scripts, blockHash: blockHash)
     }
+}
+
+extension Hash256 {
+    /// The SipHash key of the block's filter: the first half of the block
+    /// hash in internal byte order.
+    public var filterKey: (UInt64, UInt64) { (w0, w1) }
+
+    /// The filter header chaining this filter hash to the previous header:
+    /// SHA256d(filter hash || previous header), per BIP157. The genesis
+    /// filter chains to the null hash.
+    public func filterHeader(previous: Hash256) -> Hash256 {
+        var data = self.data
+        previous.append(to: &data)
+        return data.sha256d()
+    }
+}
+
+extension Data {
+    /// The double SHA256 of a serialized filter, which cfheaders messages
+    /// list and the filter header chain commits to.
+    public var filterHash: Hash256 { sha256d() }
 }
 
 /// BitReader reads a byte string most significant bit first.
@@ -196,7 +200,7 @@ public struct BloomFilter: Sendable {
     }
 
     private func hash(_ number: UInt32, _ item: [UInt8]) -> Int {
-        Int(Murmur3.hash(seed: number &* 0xfba4_c795 &+ tweak, item) % (UInt32(data.count) << 3))
+        Int(item.murmur3Hash(seed: number &* 0xfba4_c795 &+ tweak) % (UInt32(data.count) << 3))
     }
 
     public mutating func add(_ item: Data) {

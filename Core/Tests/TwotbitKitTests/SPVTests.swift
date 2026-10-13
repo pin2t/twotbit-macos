@@ -57,7 +57,7 @@ let easyBits: UInt32 = 0x207f_ffff
 /// Mines a header on the parent with the bits and time.
 func mineHeader(prev: Hash256, bits: UInt32, time: UInt32) -> BlockHeader {
     var header = BlockHeader(version: 1, prevBlock: prev, merkleRoot: .zero, timestamp: time, bits: bits, nonce: 0)
-    let target = Compact.target(bits)!
+    let target = bits.compactTarget!
     while UInt256(header.hash) > target { header.nonce += 1 }
     return header
 }
@@ -67,7 +67,7 @@ extension Network {
     /// Go chain tests do to mine test headers on it.
     func easy() -> Network {
         Network(kind: kind, name: name, magic: magic, defaultPort: defaultPort, genesis: genesis,
-                powLimit: Compact.target(easyBits)!, powLimitBits: easyBits, reduceMinDifficulty: reduceMinDifficulty,
+                powLimit: easyBits.compactTarget!, powLimitBits: easyBits, reduceMinDifficulty: reduceMinDifficulty,
                 minDiffReductionTime: minDiffReductionTime, enforceBIP94: enforceBIP94, bech32HRP: bech32HRP,
                 pubKeyHashID: pubKeyHashID, scriptHashID: scriptHashID, hdPublicKeyID: hdPublicKeyID, dnsSeeds: [])
     }
@@ -98,7 +98,7 @@ extension Network {
 
     @Test func compactBits() {
         for v in Self.fixture.compact {
-            let target = Compact.target(v.bits)
+            let target = v.bits.compactTarget
             if v.error {
                 #expect(target == nil, "\(String(v.bits, radix: 16))")
                 continue
@@ -109,7 +109,7 @@ extension Network {
                 continue
             }
             #expect(target == want, "\(String(v.bits, radix: 16))")
-            #expect(Compact.bits(want) == v.back, "\(String(v.bits, radix: 16))")
+            #expect(want.compactBits == v.back, "\(String(v.bits, radix: 16))")
         }
     }
 
@@ -182,7 +182,7 @@ extension Network {
         let network = Network.signet.easy()
         var chain = HeaderChain(network: network)
         try chain.add(network.genesis)
-        let harder = Compact.bits(Compact.target(easyBits)! >> 1)
+        let harder = (easyBits.compactTarget! >> 1).compactBits
         let header = mineHeader(prev: network.genesisHash, bits: harder, time: network.genesis.timestamp + 600)
         #expect(throws: ChainError.self) { try chain.add(header) }
     }
@@ -258,7 +258,7 @@ extension Network {
         for v in ChainTests.fixture.gcs {
             let blockHash = Hash256(data: Data(h: v.key))!
             let filter = Data(h: v.filter)
-            #expect(GCSFilter.hash(filter).hex == v.hash)
+            #expect(filter.filterHash.hex == v.hash)
             let hits = try GCSFilter.matchScripts(filter, blockHash: blockHash, scripts: v.queries.map { Data(h: $0) })
             #expect(hits == v.matches)
             #expect(GCSFilter.build(items: v.items.map { Data(h: $0) }, blockHash: blockHash) == filter)
@@ -269,7 +269,7 @@ extension Network {
         for v in ChainTests.fixture.blockFilters {
             let blockHash = Hash256(hex: v.blockHash)!
             let filter = Data(h: v.filter)
-            #expect(GCSFilter.hash(filter).hex == v.filterHash)
+            #expect(filter.filterHash.hex == v.filterHash)
             let scripts = (v.scripts ?? []).map { Data(h: $0) }
             let hits = try GCSFilter.matchScripts(filter, blockHash: blockHash, scripts: scripts)
             #expect(hits.allSatisfy { $0 }, "block \(v.height)")
@@ -277,7 +277,7 @@ extension Network {
                 #expect(try GCSFilter.matchScripts(filter, blockHash: blockHash, scripts: absent.map { Data(h: $0) }) == want)
             }
             if let prev = v.prevHeader, let header = v.header, !prev.isEmpty {
-                #expect(GCSFilter.header(filterHash: Hash256(hex: v.filterHash)!, previous: Hash256(hex: prev)!).hex == header)
+                #expect(Hash256(hex: v.filterHash)!.filterHeader(previous: Hash256(hex: prev)!).hex == header)
             }
             var unique = [Data]()
             for s in scripts where !unique.contains(s) { unique.append(s) }

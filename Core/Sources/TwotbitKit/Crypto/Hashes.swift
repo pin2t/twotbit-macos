@@ -4,45 +4,35 @@ import Foundation
 
 /// The hash functions Bitcoin uses, over CryptoKit and CommonCrypto where
 /// they provide them.
-public enum Hashes {
-    public static func sha256(_ data: Data) -> Data {
-        Data(SHA256.hash(data: data))
-    }
-
-    public static func sha256(_ bytes: [UInt8]) -> Data {
-        Data(SHA256.hash(data: bytes))
+extension Data {
+    public func sha256() -> Data {
+        Data(SHA256.hash(data: self))
     }
 
     /// SHA256 applied twice, as block hashes, transaction ids and checksums
     /// are.
-    public static func sha256d(_ data: Data) -> Hash256 {
-        let first = SHA256.hash(data: data)
+    public func sha256d() -> Hash256 {
+        let first = SHA256.hash(data: self)
         return first.withUnsafeBytes { raw in
             SHA256.hash(data: raw).withUnsafeBytes { Hash256(raw: $0) }
         }
     }
 
-    public static func sha256d(_ raw: UnsafeRawBufferPointer) -> Hash256 {
-        let first = SHA256.hash(data: raw)
-        return first.withUnsafeBytes { inner in
-            SHA256.hash(data: inner).withUnsafeBytes { Hash256(raw: $0) }
-        }
-    }
-
     /// RIPEMD160 of SHA256: the 20-byte hash of public keys and scripts in
     /// addresses.
-    public static func hash160(_ data: Data) -> Data {
-        RIPEMD160.hash(sha256(data))
+    public func hash160() -> Data {
+        sha256().ripemd160()
     }
 
-    public static func hmacSHA512(key: Data, data: Data) -> Data {
-        Data(HMAC<SHA512>.authenticationCode(for: data, using: SymmetricKey(data: key)))
+    public func hmacSHA512(key: Data) -> Data {
+        Data(HMAC<SHA512>.authenticationCode(for: self, using: SymmetricKey(data: key)))
     }
 
-    /// PBKDF2 with HMAC-SHA512, as BIP39 stretches a mnemonic into a seed.
-    public static func pbkdf2SHA512(password: Data, salt: Data, rounds: UInt32, length: Int) -> Data {
+    /// PBKDF2 with HMAC-SHA512 of the bytes as the password, as BIP39
+    /// stretches a mnemonic into a seed.
+    public func pbkdf2SHA512(salt: Data, rounds: UInt32, length: Int) -> Data {
         var out = [UInt8](repeating: 0, count: length)
-        let status = password.withUnsafeBytes { pw in
+        let status = withUnsafeBytes { pw in
             salt.withUnsafeBytes { s in
                 CCKeyDerivationPBKDF(
                     CCPBKDFAlgorithm(kCCPBKDF2),
@@ -56,6 +46,30 @@ public enum Hashes {
         return Data(out)
     }
 
+    /// RIPEMD-160, which CryptoKit does not provide.
+    public func ripemd160() -> Data { RIPEMD160.hash(self) }
+
+    /// SHA3-256, the Keccak hash v3 onion addresses checksum with.
+    public func sha3_256() -> Data { SHA3_256.hash(self) }
+}
+
+extension [UInt8] {
+    public func sha256() -> Data {
+        Data(SHA256.hash(data: self))
+    }
+}
+
+extension UnsafeRawBufferPointer {
+    /// SHA256 applied twice to the bytes in place.
+    public func sha256d() -> Hash256 {
+        let first = SHA256.hash(data: self)
+        return first.withUnsafeBytes { inner in
+            SHA256.hash(data: inner).withUnsafeBytes { Hash256(raw: $0) }
+        }
+    }
+}
+
+public enum Hashes {
     /// Cryptographically secure random bytes.
     public static func randomBytes(_ count: Int) -> Data {
         var bytes = [UInt8](repeating: 0, count: count)
@@ -66,8 +80,8 @@ public enum Hashes {
 }
 
 /// RIPEMD-160, which CryptoKit does not provide.
-public enum RIPEMD160 {
-    public static func hash(_ message: Data) -> Data {
+enum RIPEMD160 {
+    static func hash(_ message: Data) -> Data {
         var h: [UInt32] = [0x6745_2301, 0xEFCD_AB89, 0x98BA_DCFE, 0x1032_5476, 0xC3D2_E1F0]
         var padded = [UInt8](message)
         let bitLength = UInt64(message.count) * 8
@@ -149,7 +163,7 @@ public enum RIPEMD160 {
 }
 
 /// SHA3-256, the Keccak hash v3 onion addresses checksum with.
-public enum SHA3_256 {
+enum SHA3_256 {
     private static let roundConstants: [UInt64] = [
         0x0000_0000_0000_0001, 0x0000_0000_0000_8082, 0x8000_0000_0000_808A, 0x8000_0000_8000_8000,
         0x0000_0000_0000_808B, 0x0000_0000_8000_0001, 0x8000_0000_8000_8081, 0x8000_0000_0000_8009,
@@ -163,7 +177,7 @@ public enum SHA3_256 {
     ]
     private static let rate = 136
 
-    public static func hash(_ message: Data) -> Data {
+    static func hash(_ message: Data) -> Data {
         var state = [UInt64](repeating: 0, count: 25)
         var padded = [UInt8](message)
         padded.append(0x06)
@@ -208,9 +222,9 @@ public enum SHA3_256 {
     }
 }
 
-/// SipHash-2-4, the keyed hash BIP158 filters map their items with.
-public enum SipHash {
-    public static func hash(k0: UInt64, k1: UInt64, _ data: [UInt8]) -> UInt64 {
+extension [UInt8] {
+    /// SipHash-2-4, the keyed hash BIP158 filters map their items with.
+    public func sipHash(k0: UInt64, k1: UInt64) -> UInt64 {
         var v0: UInt64 = k0 ^ 0x736f_6d65_7073_6575
         var v1: UInt64 = k1 ^ 0x646f_7261_6e64_6f6d
         var v2: UInt64 = k0 ^ 0x6c79_6765_6e65_7261
@@ -221,16 +235,16 @@ public enum SipHash {
             v0 = v0 &+ v3; v3 = (v3 << 21) | (v3 >> 43); v3 ^= v0
             v2 = v2 &+ v1; v1 = (v1 << 17) | (v1 >> 47); v1 ^= v2; v2 = (v2 << 32) | (v2 >> 32)
         }
-        let blocks = data.count / 8
+        let blocks = count / 8
         for i in 0..<blocks {
             var m: UInt64 = 0
-            for b in 0..<8 { m |= UInt64(data[i * 8 + b]) << (8 * UInt64(b)) }
+            for b in 0..<8 { m |= UInt64(self[i * 8 + b]) << (8 * UInt64(b)) }
             v3 ^= m
             round(); round()
             v0 ^= m
         }
-        var last = UInt64(data.count & 0xff) << 56
-        for b in 0..<(data.count % 8) { last |= UInt64(data[blocks * 8 + b]) << (8 * UInt64(b)) }
+        var last = UInt64(count & 0xff) << 56
+        for b in 0..<(count % 8) { last |= UInt64(self[blocks * 8 + b]) << (8 * UInt64(b)) }
         v3 ^= last
         round(); round()
         v0 ^= last
@@ -238,17 +252,16 @@ public enum SipHash {
         round(); round(); round(); round()
         return v0 ^ v1 ^ v2 ^ v3
     }
-}
 
-/// MurmurHash3 x86 32-bit, the hash BIP37 bloom filters set their bits with.
-public enum Murmur3 {
-    public static func hash(seed: UInt32, _ data: [UInt8]) -> UInt32 {
+    /// MurmurHash3 x86 32-bit, the hash BIP37 bloom filters set their bits
+    /// with.
+    public func murmur3Hash(seed: UInt32) -> UInt32 {
         let c1: UInt32 = 0xcc9e_2d51
         let c2: UInt32 = 0x1b87_3593
         var h = seed
-        let blocks = data.count / 4
+        let blocks = count / 4
         for i in 0..<blocks {
-            var k = UInt32(data[i * 4]) | UInt32(data[i * 4 + 1]) << 8 | UInt32(data[i * 4 + 2]) << 16 | UInt32(data[i * 4 + 3]) << 24
+            var k = UInt32(self[i * 4]) | UInt32(self[i * 4 + 1]) << 8 | UInt32(self[i * 4 + 2]) << 16 | UInt32(self[i * 4 + 3]) << 24
             k = k &* c1
             k = (k << 15) | (k >> 17)
             k = k &* c2
@@ -258,15 +271,15 @@ public enum Murmur3 {
         }
         var k: UInt32 = 0
         let tail = blocks * 4
-        switch data.count & 3 {
+        switch count & 3 {
         case 3:
-            k ^= UInt32(data[tail + 2]) << 16
+            k ^= UInt32(self[tail + 2]) << 16
             fallthrough
         case 2:
-            k ^= UInt32(data[tail + 1]) << 8
+            k ^= UInt32(self[tail + 1]) << 8
             fallthrough
         case 1:
-            k ^= UInt32(data[tail])
+            k ^= UInt32(self[tail])
             k = k &* c1
             k = (k << 15) | (k >> 17)
             k = k &* c2
@@ -274,7 +287,7 @@ public enum Murmur3 {
         default:
             break
         }
-        h ^= UInt32(truncatingIfNeeded: data.count)
+        h ^= UInt32(truncatingIfNeeded: count)
         h ^= h >> 16
         h = h &* 0x85eb_ca6b
         h ^= h >> 13

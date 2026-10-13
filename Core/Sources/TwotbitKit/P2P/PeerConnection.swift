@@ -90,7 +90,7 @@ public final class PeerConnection: Sendable {
     /// the transactions it relays without a bloom filter.
     public static func connect(network: Network, address: String, dialer: any Dialer, relay: Bool, pinned: Bool = false,
                                handler: @escaping @Sendable (PeerConnection, Message) -> Void) async throws -> (PeerConnection, Duration) {
-        let (host, port) = try HostPort.split(address)
+        let (host, port) = try address.splitHostPort()
         let overlay = OverlayNetwork.of(host) != .direct
         let started = ContinuousClock.now
         let stream: TCPStream
@@ -123,7 +123,7 @@ public final class PeerConnection: Sendable {
     private static func handshake(stream: TCPStream, network: Network, host: String, port: UInt16, relay: Bool) async throws -> RemoteVersion {
         let nonce = UInt64.random(in: 1...UInt64.max)
         let mappedZero = [UInt8](repeating: 0, count: 10) + [0xff, 0xff, 0, 0, 0, 0]
-        let recv = IPAddress.bytes(host).map { NetAddress(ip: $0, port: port) } ?? NetAddress(ip: mappedZero, port: port)
+        let recv = host.ipBytes.map { NetAddress(ip: $0, port: port) } ?? NetAddress(ip: mappedZero, port: port)
         let version = VersionMessage(protocolVersion: Message.protocolVersion, services: [], timestamp: Int64(Date().timeIntervalSince1970),
                                      addrRecv: recv, addrFrom: NetAddress(), nonce: nonce, userAgent: userAgent, startHeight: 0, relay: relay)
         stream.send(Wire.frame(.version(version), magic: network.magic))
@@ -157,7 +157,7 @@ public final class PeerConnection: Sendable {
             throw PeerError("message from network \(String(header.magic, radix: 16)), want \(network.name)")
         }
         let payload = header.length > 0 ? try await stream.read(header.length) : Data()
-        guard Wire.checksumMatches(header, payload: payload) else { throw PeerError("\(header.command) message checksum mismatch") }
+        guard header.checksumMatches(payload: payload) else { throw PeerError("\(header.command) message checksum mismatch") }
         return (header.command, payload)
     }
 

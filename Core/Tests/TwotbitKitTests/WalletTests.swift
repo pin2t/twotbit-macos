@@ -64,17 +64,17 @@ struct WalletFixture: Decodable {
 
     @Test func mnemonics() throws {
         for v in Self.fixture.mnemonics {
-            #expect(try BIP39.mnemonic(entropy: Data(h: v.entropy)) == v.mnemonic)
-            #expect(try BIP39.entropy(of: v.mnemonic).hex == v.entropy)
-            #expect(BIP39.seed(mnemonic: v.mnemonic).hex == v.seed)
-            #expect(BIP39.seed(mnemonic: v.mnemonic, passphrase: "TREZOR").hex == v.seedTrezor)
+            #expect(try Data(h: v.entropy).mnemonic() == v.mnemonic)
+            #expect(try v.mnemonic.mnemonicEntropy().hex == v.entropy)
+            #expect(v.mnemonic.mnemonicSeed().hex == v.seed)
+            #expect(v.mnemonic.mnemonicSeed(passphrase: "TREZOR").hex == v.seedTrezor)
         }
         for bad in Self.fixture.invalidMnemonics {
-            #expect(!BIP39.isValid(bad), "\(bad)")
+            #expect(!bad.isValidMnemonic, "\(bad)")
         }
         let fresh = try BIP39.generateMnemonic()
         #expect(fresh.split(separator: " ").count == 12)
-        #expect(BIP39.isValid(fresh))
+        #expect(fresh.isValidMnemonic)
     }
 
     @Test func derivation() throws {
@@ -106,9 +106,9 @@ struct WalletFixture: Decodable {
     }
 
     @Test func paths() throws {
-        #expect(try ExtendedKey.parsePath("m/84'/0'/0'/1/3") == [84 + 0x8000_0000, 0x8000_0000, 0x8000_0000, 1, 3])
+        #expect(try "m/84'/0'/0'/1/3".derivationPath() == [84 + 0x8000_0000, 0x8000_0000, 0x8000_0000, 1, 3])
         for bad in ["", "m", "84'/0'", "m/x", "m/2147483648", "m/+1", "m//1", "n/1"] {
-            #expect(throws: KeyError.self, "\(bad)") { try ExtendedKey.parsePath(bad) }
+            #expect(throws: KeyError.self, "\(bad)") { try bad.derivationPath() }
         }
     }
 
@@ -163,13 +163,13 @@ struct WalletFixture: Decodable {
             #expect(SpendPlanner.estimateVSize(inputs: v.inputs, outputs: v.outputs.map { Data(h: $0) }) == v.vsize)
         }
         for v in Self.fixture.dust {
-            #expect(SpendPlanner.dustLimit(Data(h: v.script)) == v.dust, "\(v.script)")
+            #expect(Data(h: v.script).dustLimit == v.dust, "\(v.script)")
         }
     }
 
     @Test func addressScripts() {
         for v in Self.fixture.addressScripts {
-            let script = try? Address.script(for: v.address, network: .fixture(v.network))
+            let script = try? v.address.addressScript(network: .fixture(v.network))
             #expect((script == nil) == v.error, "\(v.network) \(v.address)")
             if let script, let want = v.script {
                 #expect(script.hex == want, "\(v.address)")

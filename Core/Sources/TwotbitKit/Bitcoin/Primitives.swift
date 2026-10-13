@@ -48,7 +48,7 @@ public struct BlockHeader: Sendable, Hashable {
     }
 
     /// The block hash: the double SHA256 of the serialized header.
-    public var hash: Hash256 { Hashes.sha256d(serialized) }
+    public var hash: Hash256 { serialized.sha256d() }
 }
 
 /// OutPoint names one transaction output: the id of its transaction and its
@@ -218,10 +218,10 @@ public struct Transaction: Sendable, Hashable {
     }
 
     /// The transaction id: the hash of the serialization without witness.
-    public var txid: Hash256 { Hashes.sha256d(serialized(witness: false)) }
+    public var txid: Hash256 { serialized(witness: false).sha256d() }
 
     /// The witness transaction id, which commits to the witness data too.
-    public var wtxid: Hash256 { Hashes.sha256d(serialized(witness: true)) }
+    public var wtxid: Hash256 { serialized(witness: true).sha256d() }
 
     public var isCoinbase: Bool { inputs.count == 1 && inputs[0].previousOutPoint.isCoinbase }
 
@@ -268,27 +268,6 @@ public struct Block: Sendable {
         return writer.data
     }
 
-    /// The merkle root of the hashes: pairs hashed together level by level,
-    /// the last hash of an odd level paired with itself.
-    public static func merkleRoot(_ hashes: [Hash256]) -> Hash256 {
-        guard !hashes.isEmpty else { return .zero }
-        var level = hashes
-        var buffer = Data(count: 64)
-        while level.count > 1 {
-            var next = [Hash256]()
-            next.reserveCapacity((level.count + 1) / 2)
-            for i in stride(from: 0, to: level.count, by: 2) {
-                let left = level[i]
-                let right = i + 1 < level.count ? level[i + 1] : left
-                buffer.removeAll(keepingCapacity: true)
-                left.append(to: &buffer)
-                right.append(to: &buffer)
-                next.append(Hashes.sha256d(buffer))
-            }
-            level = next
-        }
-        return level[0]
-    }
 
     /// The witness commitment prefix of a coinbase output: OP_RETURN, a
     /// 36-byte push and the BIP141 magic.
@@ -311,7 +290,7 @@ public struct Block: Sendable {
             guard seen.insert(id).inserted else { throw BlockError("duplicate transaction \(id)") }
             txids.append(id)
         }
-        let root = Block.merkleRoot(txids)
+        let root = txids.merkleRoot()
         guard root == header.merkleRoot else { throw BlockError("merkle root \(root), header commits to \(header.merkleRoot)") }
         try verifyWitnessCommitment()
     }
@@ -337,13 +316,37 @@ public struct Block: Sendable {
         guard witness[0].count == 32 else { throw BlockError("witness commitment: the coinbase witness nonce has \(witness[0].count) bytes when it must be 32") }
         var wtxids = transactions.map { $0.wtxid }
         wtxids[0] = .zero
-        var preimage = Block.merkleRoot(wtxids).data
+        var preimage = wtxids.merkleRoot().data
         preimage.append(witness[0])
-        guard Hashes.sha256d(preimage).data == commitment else { throw BlockError("witness commitment does not match") }
+        guard preimage.sha256d().data == commitment else { throw BlockError("witness commitment does not match") }
     }
 }
 
 public struct BlockError: Error, CustomStringConvertible, Sendable {
     public let description: String
     init(_ description: String) { self.description = description }
+}
+
+extension [Hash256] {
+    /// The merkle root of the hashes: pairs hashed together level by level,
+    /// the last hash of an odd level paired with itself.
+    public func merkleRoot() -> Hash256 {
+        guard !isEmpty else { return .zero }
+        var level = self
+        var buffer = Data(count: 64)
+        while level.count > 1 {
+            var next = [Hash256]()
+            next.reserveCapacity((level.count + 1) / 2)
+            for i in stride(from: 0, to: level.count, by: 2) {
+                let left = level[i]
+                let right = i + 1 < level.count ? level[i + 1] : left
+                buffer.removeAll(keepingCapacity: true)
+                left.append(to: &buffer)
+                right.append(to: &buffer)
+                next.append(buffer.sha256d())
+            }
+            level = next
+        }
+        return level[0]
+    }
 }

@@ -175,7 +175,7 @@ extension SyncEngine {
         for (i, data) in filters.enumerated() {
             let height = start + Int32(i)
             guard let stored = try store.filterHeader(at: height) else { throw PeerError("filter header at height \(height) not stored") }
-            prev = GCSFilter.header(filterHash: GCSFilter.hash(data), previous: prev)
+            prev = data.filterHash.filterHeader(previous: prev)
             guard prev == stored else { throw PeerError("filter at height \(height) chains to header \(prev), stored \(stored)") }
         }
     }

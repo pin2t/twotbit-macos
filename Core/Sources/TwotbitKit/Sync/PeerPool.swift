@@ -221,7 +221,7 @@ extension SyncEngine {
         for p in try store.peers() {
             if p.services != 0 && !ServiceFlags(rawValue: p.services).contains(.compactFilters) { continue }
             if !allowed.contains(OverlayNetwork.of(p.host)) { continue }
-            add(HostPort.join(p.host, p.port))
+            add(p.host.withPort(p.port))
         }
         for n in allowed {
             let seeds: [PeerAddress]
@@ -248,7 +248,7 @@ extension SyncEngine {
     /// others filled the pool. A dial abandoned by cancellation is not held
     /// against the peer.
     func connect(_ addr: String, pinned: Bool) async -> Bool {
-        guard let dialer = dialer(for: addr), let (host, port) = try? HostPort.split(addr) else { return false }
+        guard let dialer = dialer(for: addr), let (host, port) = try? addr.splitHostPort() else { return false }
         let c: PeerConnection
         let handshake: Duration
         do {
@@ -355,7 +355,7 @@ extension SyncEngine {
             for a in list { savePeerAddr(a.host, a.port, a.services) }
         case .addrV2(let list):
             for a in list {
-                guard let host = a.host, Onion.isOnion(host) || IPAddress.isIP(host) else { continue }
+                guard let host = a.host, host.isOnion || host.isIP else { continue }
                 savePeerAddr(host, a.port, a.services)
             }
         default:

@@ -516,7 +516,7 @@ extension SyncEngine {
     /// scripts. A script with no address, such as OP_RETURN data, gets none.
     static func outputAddress(_ script: Data, _ w: WalletState, _ network: Network) -> TxAddress {
         if let idx = w.scriptIndex[script] { return TxAddress(address: w.scripts[idx].address, mine: true) }
-        return TxAddress(address: Address.of(script: script, network: network) ?? "", mine: false)
+        return TxAddress(address: script.address(network: network) ?? "", mine: false)
     }
 
     /// The address an input spends from, with the value it spends when the
@@ -537,23 +537,23 @@ extension SyncEngine {
     /// and P2SH. Taproot spends do not reveal the output key and give an
     /// empty address, as does anything not recognised.
     static func spentAddress(_ sigScript: Data, _ witness: [Data], _ network: Network) -> String {
-        guard let pushes = try? Script.pushedData(sigScript) else { return "" }
+        guard let pushes = try? sigScript.pushedData() else { return "" }
         if !witness.isEmpty {
-            if pushes.count == 1 { return Address.p2sh(hash: Hashes.hash160(pushes[0]), network: network) }
+            if pushes.count == 1 { return Address.p2sh(hash: pushes[0].hash160(), network: network) }
             if !sigScript.isEmpty { return "" }
             let last = witness[witness.count - 1]
-            if witness.count == 2 && Script.isPubKey(last) {
-                return Address.segwit(version: 0, program: Hashes.hash160(last), network: network)
+            if witness.count == 2 && last.isPubKey {
+                return Address.segwit(version: 0, program: last.hash160(), network: network)
             }
-            if witness.count >= 2 && !Script.isControlBlock(last) {
-                return Address.segwit(version: 0, program: Hashes.sha256(last), network: network)
+            if witness.count >= 2 && !last.isControlBlock {
+                return Address.segwit(version: 0, program: last.sha256(), network: network)
             }
             return ""
         }
-        if pushes.count == 2 && Script.isPubKey(pushes[1]) {
-            return Address.p2pkh(hash: Hashes.hash160(pushes[1]), network: network)
+        if pushes.count == 2 && pushes[1].isPubKey {
+            return Address.p2pkh(hash: pushes[1].hash160(), network: network)
         }
-        if pushes.count >= 2 { return Address.p2sh(hash: Hashes.hash160(pushes[pushes.count - 1]), network: network) }
+        if pushes.count >= 2 { return Address.p2sh(hash: pushes[pushes.count - 1].hash160(), network: network) }
         return ""
     }
 }

@@ -119,7 +119,7 @@ import Testing
             ("2001:db8::1", "[2001:db8::1]:8333"), ("[2001:db8::1]", "[2001:db8::1]:8333"), ("[2001:db8::1]:8334", "[2001:db8::1]:8334"),
             ("192.0.2", nil), ("192.0.2.1:", nil), ("192.0.2.1:0", nil), ("192.0.2.1:65536", nil), ("example.com:8333", nil), ("[2001:db8::1", nil),
         ]
-        for (text, want) in cases { #expect(PeerProbe.parse(text, defaultPort: 8333) == want, "\(text)") }
+        for (text, want) in cases { #expect(text.peerAddress(defaultPort: 8333) == want, "\(text)") }
         #expect(PeerProbe.reason(PeerProbe.NoCompactFilters(address: "x")) == "no compact filters (needs blockfilterindex=1 and peerblockfilters=1)")
         #expect(PeerProbe.reason(PeerError("dial", underlying: NetError(.refused, "connection refused"))) == "connection refused")
         #expect(PeerProbe.reason(PeerError("dial", underlying: NetError(.timeout, "i/o timeout"))) == "no answer")

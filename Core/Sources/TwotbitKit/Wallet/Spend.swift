@@ -76,24 +76,13 @@ public enum SpendPlanner {
         return (weight + 3) / 4
     }
 
-    /// The smallest output value Bitcoin Core relays for the script at its
-    /// default dust relay fee of 3 sat/vB: the cost of creating and later
-    /// spending the output.
-    public static func dustLimit(_ script: Data) -> Int64 {
-        var spend = Int64(32 + 4 + 1 + 107 + 4)
-        if Script.isWitnessProgram(script) {
-            spend = 32 + 4 + 1 + 107 / 4 + 4
-        }
-        return (Int64(8 + varIntSize(UInt64(script.count)) + script.count) + spend) * 3
-    }
-
     /// Plans paying the amount to the destination script at the fee rate in
     /// sat/vB. With useAll every given coin is spent, as when the user
     /// picked them; otherwise coins are added largest first, confirmed ones
     /// before unconfirmed, until they cover the amount and the fee. Change
     /// goes to the change script unless it would be dust.
     public static func plan(coins: [Coin], useAll: Bool, dest: Data, amount: Int64, feeRate: Int64, change: Data) throws -> Spend {
-        guard amount >= dustLimit(dest) else { throw SpendError.dustAmount(amount: amount, limit: dustLimit(dest)) }
+        guard amount >= dest.dustLimit else { throw SpendError.dustAmount(amount: amount, limit: dest.dustLimit) }
         guard feeRate >= 1 else { throw SpendError.feeRateTooLow }
         var candidates = coins
         if !useAll {
@@ -108,7 +97,7 @@ public enum SpendPlanner {
             let sum = inputs.reduce(Int64(0)) { $0 + $1.value }
             let withChange = estimateVSize(inputs: n, outputs: [dest, change]) * feeRate
             let rest = sum - amount - withChange
-            if rest >= dustLimit(change) {
+            if rest >= change.dustLimit {
                 return Spend(inputs: inputs, amount: amount, fee: withChange, change: rest)
             }
             let noChange = estimateVSize(inputs: n, outputs: [dest]) * feeRate
@@ -125,6 +114,19 @@ public enum SpendPlanner {
     public static func maxAmount(coins: [Coin], dest: Data, feeRate: Int64) -> Int64 {
         let sum = coins.reduce(Int64(0)) { $0 + $1.value }
         let amount = sum - estimateVSize(inputs: coins.count, outputs: [dest]) * feeRate
-        return amount < dustLimit(dest) ? 0 : amount
+        return amount < dest.dustLimit ? 0 : amount
+    }
+}
+
+extension Data {
+    /// The smallest value Bitcoin Core relays an output paying the script
+    /// with at its default dust relay fee of 3 sat/vB: the cost of creating
+    /// and later spending the output.
+    public var dustLimit: Int64 {
+        var spend = Int64(32 + 4 + 1 + 107 + 4)
+        if isWitnessProgram {
+            spend = 32 + 4 + 1 + 107 / 4 + 4
+        }
+        return (Int64(8 + varIntSize(UInt64(count)) + count) + spend) * 3
     }
 }

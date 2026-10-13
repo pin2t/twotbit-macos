@@ -70,7 +70,7 @@ extension SyncEngine {
             let votes = responses.map(\.prevFilterHeader)
             var anchor: Hash256
             do {
-                anchor = try SyncEngine.majorityAnchor(votes)
+                anchor = try votes.majorityAnchor()
             } catch {
                 anchor = votes[0]
                 Log.info("sync: filter peers disagree on the filter header anchor (\(error)); trusting \(answered[0].address)")
@@ -105,7 +105,7 @@ extension SyncEngine {
             let hashes = committed[ObjectIdentifier(c)] ?? []
             for (i, d) in data.enumerated() {
                 let index = Int(fStart - base) + i
-                let raw = GCSFilter.hash(d)
+                let raw = d.filterHash
                 guard index < hashes.count, raw == hashes[index] else {
                     throw PeerError("filter at height \(fStart + Int32(i)) hashes to \(raw), peer committed to \(index < hashes.count ? hashes[index].hex : "none")")
                 }
@@ -136,7 +136,7 @@ extension SyncEngine {
         var variants = [Variant]()
         for (i, c) in peers.enumerated() {
             let data = got[i][index]
-            let hash = GCSFilter.hash(data)
+            let hash = data.filterHash
             if let v = variants.firstIndex(where: { $0.hash == hash }) {
                 variants[v].peers.append(c)
             } else {
@@ -288,7 +288,7 @@ extension SyncEngine {
     func applyFilter(_ height: Int32, _ data: Data, _ block: Block?, _ prev: Hash256) async throws -> StoredFilter {
         guard let entry = entry(at: height) else { throw PeerError("no header at height \(height)") }
         let row = StoredFilter(height: height, blockHash: entry.hash,
-                               filterHeader: GCSFilter.header(filterHash: GCSFilter.hash(data), previous: prev), data: nil)
+                               filterHeader: data.filterHash.filterHeader(previous: prev), data: nil)
         let watched = watchedScripts()
         let hits: [Bool]
         do {

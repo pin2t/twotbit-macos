@@ -87,7 +87,7 @@ func socksProxy(to node: MockNode, requests: Recorder<String>, users: Recorder<S
             host = String(decoding: name, as: UTF8.self)
         case 1:
             guard let ip = try? await client.read(4) else { return }
-            host = IPAddress.string([UInt8](ip))
+            host = [UInt8](ip).ipString
         default:
             return
         }

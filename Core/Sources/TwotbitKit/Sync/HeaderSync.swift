@@ -63,20 +63,6 @@ extension SyncEngine {
         return try await getCFHeaders(c, start: start, stop: entry.hash, timeout: SyncEngine.anchorRequestTimeout).prevFilterHeader
     }
 
-    /// The anchor a strict majority of the votes report. No votes, and ties
-    /// without a majority, are errors.
-    public static func majorityAnchor(_ votes: [Hash256]) throws -> Hash256 {
-        guard let first = votes.first else { throw PeerError("no anchor votes") }
-        var counts = [Hash256: Int]()
-        for vote in votes { counts[vote, default: 0] += 1 }
-        var best = first
-        for (vote, n) in counts where n > counts[best]! { best = vote }
-        guard counts[best]! * 2 > votes.count else {
-            throw PeerError("no majority anchor: \(counts[best]!) of \(votes.count) peers agree")
-        }
-        return best
-    }
-
     /// Requests headers from the peer until its tip is reached, validating
     /// and storing every batch, and returns the new tip height.
     @discardableResult
@@ -278,14 +264,14 @@ extension SyncEngine {
         let all = votes.withLock { $0 }
         Log.info("sync: filter header anchor votes: \(answered.count) from connected peers, \(dialed.withLock { $0 }) from dialed peers")
         guard !all.isEmpty else { return nil }
-        return try SyncEngine.majorityAnchor(all)
+        return try all.majorityAnchor()
     }
 
     /// Connects to one candidate just long enough to ask it for the filter
     /// header anchor.
     func dialAnchor(_ addr: String) async throws -> Hash256 {
         guard let dialer = dialer(for: addr) else { throw PeerError("peer \(addr) not dialed on the networks on") }
-        let (host, port) = try HostPort.split(addr)
+        let (host, port) = try addr.splitHostPort()
         let c: PeerConnection
         do {
             (c, _) = try await PeerConnection.connect(network: network, address: addr, dialer: dialer, relay: false) { [weak self] c, message in
@@ -309,5 +295,21 @@ extension SyncEngine {
             Log.info("peer \(addr): filter header anchor: \(error)")
             throw error
         }
+    }
+}
+
+extension [Hash256] {
+    /// The filter header anchor a strict majority of the votes report. No votes, and ties
+    /// without a majority, are errors.
+    public func majorityAnchor() throws -> Hash256 {
+        guard let first = first else { throw PeerError("no anchor votes") }
+        var counts = [Hash256: Int]()
+        for vote in self { counts[vote, default: 0] += 1 }
+        var best = first
+        for (vote, n) in counts where n > counts[best]! { best = vote }
+        guard counts[best]! * 2 > count else {
+            throw PeerError("no majority anchor: \(counts[best]!) of \(count) peers agree")
+        }
+        return best
     }
 }
