@@ -13,11 +13,11 @@ public struct PeerAddress: Hashable, Sendable, CustomStringConvertible {
 
     /// The dialable host:port form, the host in brackets when it is an IPv6
     /// address, as Go's net.JoinHostPort writes it.
-    public var description: String { HostPort.join(host, port) }
+    public var description: String { host.withPort(port) }
 
     /// Parses the host:port form.
     public init?(_ text: String) {
-        guard let (host, port) = try? HostPort.split(text) else { return nil }
+        guard let (host, port) = try? text.splitHostPort() else { return nil }
         self.init(host: host, port: port)
     }
 
@@ -45,90 +45,88 @@ public struct HostPortError: Error, Equatable, Sendable, CustomStringConvertible
     public let description: String
 }
 
-/// HostPort splits and joins host:port addresses the way Go's net package
-/// does.
-public enum HostPort {
-    public static func join(_ host: String, _ port: UInt16) -> String {
-        host.contains(":") ? "[\(host)]:\(port)" : "\(host):\(port)"
+/// Splitting and joining host:port addresses the way Go's net package
+/// does, and IP addresses parsed and printed as Go's net.IP does.
+extension String {
+    /// The host joined with the port, an IPv6 host in brackets, as
+    /// net.JoinHostPort does.
+    public func withPort(_ port: UInt16) -> String {
+        contains(":") ? "[\(self)]:\(port)" : "\(self):\(port)"
     }
 
     /// Splits host:port or [host]:port, as net.SplitHostPort does, and
     /// parses the port.
-    public static func split(_ text: String) throws -> (String, UInt16) {
-        let (host, portText) = try splitRaw(text)
+    public func splitHostPort() throws -> (String, UInt16) {
+        let (host, portText) = try splitHostPortRaw()
         guard !portText.isEmpty, portText.allSatisfy(\.isASCIIDigit), let port = UInt16(portText) else {
-            throw HostPortError(description: "address \(text): invalid port")
+            throw HostPortError(description: "address \(self): invalid port")
         }
         return (host, port)
     }
 
     /// Splits without parsing the port.
-    public static func splitRaw(_ text: String) throws -> (String, String) {
-        guard let colon = text.lastIndex(of: ":") else {
-            throw HostPortError(description: "address \(text): missing port in address")
+    public func splitHostPortRaw() throws -> (String, String) {
+        guard let colon = lastIndex(of: ":") else {
+            throw HostPortError(description: "address \(self): missing port in address")
         }
-        let port = String(text[text.index(after: colon)...])
+        let port = String(self[index(after: colon)...])
         var host: String
-        if text.hasPrefix("[") {
-            guard let close = text.firstIndex(of: "]") else {
-                throw HostPortError(description: "address \(text): missing ']' in address")
+        if hasPrefix("[") {
+            guard let close = firstIndex(of: "]") else {
+                throw HostPortError(description: "address \(self): missing ']' in address")
             }
-            guard text.index(after: close) == colon else {
-                throw HostPortError(description: "address \(text): missing port in address")
+            guard index(after: close) == colon else {
+                throw HostPortError(description: "address \(self): missing port in address")
             }
-            host = String(text[text.index(after: text.startIndex)..<close])
+            host = String(self[index(after: startIndex)..<close])
             guard !host.contains("[") && !host.contains("]") else {
-                throw HostPortError(description: "address \(text): unexpected bracket")
+                throw HostPortError(description: "address \(self): unexpected bracket")
             }
         } else {
-            host = String(text[..<colon])
+            host = String(self[..<colon])
             guard !host.contains(":") else {
-                throw HostPortError(description: "address \(text): too many colons in address")
+                throw HostPortError(description: "address \(self): too many colons in address")
             }
             guard !host.contains("[") && !host.contains("]") else {
-                throw HostPortError(description: "address \(text): unexpected bracket")
+                throw HostPortError(description: "address \(self): unexpected bracket")
             }
         }
         return (host, port)
     }
-}
 
-/// IPAddress parses and prints IP addresses as Go's net.IP does.
-public enum IPAddress {
     /// The 16-byte form of an IPv4 or IPv6 address, IPv4 mapped into IPv6,
     /// or nil for text that is not an IP address.
-    public static func bytes(_ text: String) -> [UInt8]? {
+    public var ipBytes: [UInt8]? {
         var v4 = in_addr()
-        if inet_pton(AF_INET, text, &v4) == 1 {
+        if inet_pton(AF_INET, self, &v4) == 1 {
             let raw = withUnsafeBytes(of: v4) { [UInt8]($0) }
             return [UInt8](repeating: 0, count: 10) + [0xff, 0xff] + raw
         }
         var v6 = in6_addr()
-        if inet_pton(AF_INET6, text, &v6) == 1 {
+        if inet_pton(AF_INET6, self, &v6) == 1 {
             return withUnsafeBytes(of: v6) { [UInt8]($0) }
         }
         return nil
     }
 
     /// Whether the text is an IPv4 or IPv6 address.
-    public static func isIP(_ text: String) -> Bool { bytes(text) != nil }
+    public var isIP: Bool { ipBytes != nil }
 
     /// The canonical text of an IP address: dotted for IPv4 and IPv4-mapped
     /// IPv6, RFC 5952 for IPv6. Text that is not an IP gives nil.
-    public static func canonical(_ text: String) -> String? {
-        guard let raw = bytes(text) else { return nil }
-        return string(raw)
-    }
+    public var canonicalIP: String? { ipBytes?.ipString }
+}
 
-    /// The text of a 4- or 16-byte address.
-    public static func string(_ raw: [UInt8]) -> String {
-        if raw.count == 4 { return raw.map(String.init).joined(separator: ".") }
-        if raw.count == 16 && raw[0..<10].allSatisfy({ $0 == 0 }) && raw[10] == 0xff && raw[11] == 0xff {
-            return raw[12...].map(String.init).joined(separator: ".")
+extension [UInt8] {
+    /// The text of a 4- or 16-byte IP address.
+    public var ipString: String {
+        if count == 4 { return map(String.init).joined(separator: ".") }
+        if count == 16 && self[0..<10].allSatisfy({ $0 == 0 }) && self[10] == 0xff && self[11] == 0xff {
+            return self[12...].map(String.init).joined(separator: ".")
         }
-        guard raw.count == 16 else { return "?" }
+        guard count == 16 else { return "?" }
         var words = [UInt16]()
-        for i in stride(from: 0, to: 16, by: 2) { words.append(UInt16(raw[i]) << 8 | UInt16(raw[i + 1])) }
+        for i in stride(from: 0, to: 16, by: 2) { words.append(UInt16(self[i]) << 8 | UInt16(self[i + 1])) }
         var bestStart = -1, bestLength = 0, start = -1
         for i in 0...8 {
             if i < 8 && words[i] == 0 {

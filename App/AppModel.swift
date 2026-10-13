@@ -507,7 +507,7 @@ final class AppModel {
             usePeer("")
             return
         }
-        guard let addr = PeerProbe.parse(trimmed, defaultPort: network.defaultPort) else {
+        guard let addr = trimmed.peerAddress(defaultPort: network.defaultPort) else {
             peerStatus = "Not connected: not an IP address or IP:port"
             return
         }

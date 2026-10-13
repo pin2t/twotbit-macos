@@ -30,10 +30,10 @@ public final class HDWallet: Sendable {
     /// Restores the wallet of the mnemonic, with the optional BIP39
     /// passphrase, for the network.
     public init(mnemonic: String, passphrase: String = "", network: Network) throws {
-        guard BIP39.isValid(mnemonic) else { throw BIP39.Error.invalidMnemonic }
+        guard mnemonic.isValidMnemonic else { throw BIP39.Error.invalidMnemonic }
         self.network = network
         self.mnemonic = mnemonic
-        master = try ExtendedKey.master(seed: BIP39.seed(mnemonic: mnemonic, passphrase: passphrase))
+        master = try ExtendedKey.master(seed: mnemonic.mnemonicSeed(passphrase: passphrase))
         let h = ExtendedKey.hardened
         account = try master.derive(path: [HDWallet.purpose + h, network.coinType + h, h])
         chains = [try account.derive(HDWallet.receiveChain), try account.derive(HDWallet.changeChain)]
@@ -76,12 +76,12 @@ public final class HDWallet: Sendable {
     /// The output script paying a destination address of the wallet's
     /// network.
     public func addressScript(_ address: String) throws -> Data {
-        try Address.script(for: address, network: network)
+        try address.addressScript(network: network)
     }
 
     /// The private key at a derivation path such as m/84'/0'/0'/1/3.
     func privateKey(path: String) throws -> Data {
-        try master.derive(path: ExtendedKey.parsePath(path)).privateKey
+        try master.derive(path: path.derivationPath()).privateKey
     }
 
     /// Builds the planned transaction paying the destination script, with
@@ -153,9 +153,9 @@ struct SigHashes {
         }
         var o = ByteWriter()
         for output in tx.outputs { output.write(to: &o) }
-        prevouts = Hashes.sha256d(p.data)
-        sequences = Hashes.sha256d(s.data)
-        outputs = Hashes.sha256d(o.data)
+        prevouts = p.data.sha256d()
+        sequences = s.data.sha256d()
+        outputs = o.data.sha256d()
     }
 
     /// The SIGHASH_ALL hash of the input spending a P2WPKH output: its
@@ -172,6 +172,6 @@ struct SigHashes {
         w.write(outputs)
         w.writeUInt32(tx.lockTime)
         w.writeUInt32(UInt32(SigHashes.all))
-        return Hashes.sha256d(w.data).data
+        return w.data.sha256d().data
     }
 }

@@ -128,17 +128,17 @@ public struct UInt256: Comparable, Hashable, Sendable, CustomStringConvertible {
     public var description: String { hex }
 }
 
-/// Compact is the 32-bit floating point encoding of a difficulty target in
-/// the bits field of a block header: an exponent byte and a 23-bit mantissa
-/// with a sign bit.
-public enum Compact {
-    /// Decodes compact bits into the target. Negative and overflowing
+/// Compact bits are the 32-bit floating point encoding of a difficulty
+/// target in the bits field of a block header: an exponent byte and a
+/// 23-bit mantissa with a sign bit.
+extension UInt32 {
+    /// The target the compact bits encode. Negative and overflowing
     /// encodings give nil: Bitcoin Core rejects their blocks, and no valid
     /// target needs them.
-    public static func target(_ compact: UInt32) -> UInt256? {
-        let exponent = Int(compact >> 24)
-        let mantissa = UInt64(compact & 0x007f_ffff)
-        let negative = compact & 0x0080_0000 != 0
+    public var compactTarget: UInt256? {
+        let exponent = Int(self >> 24)
+        let mantissa = UInt64(self & 0x007f_ffff)
+        let negative = self & 0x0080_0000 != 0
         if mantissa != 0 && exponent == 0 { return nil }
         var target: UInt256
         if exponent <= 3 {
@@ -152,16 +152,25 @@ public enum Compact {
         return target
     }
 
-    /// Encodes a target in compact bits, rounding the mantissa down to 23
+    /// The proof of work of one block of the compact bits.
+    public var compactWork: Double {
+        guard let target = compactTarget else { return 0 }
+        let t = Double(target.l3) * 0x1p192 + Double(target.l2) * 0x1p128 + Double(target.l1) * 0x1p64 + Double(target.l0)
+        return 0x1p256 / (t + 1)
+    }
+}
+
+extension UInt256 {
+    /// The target in compact bits, rounding the mantissa down to 23
     /// bits, as btcd's BigToCompact does.
-    public static func bits(_ target: UInt256) -> UInt32 {
-        if target.isZero { return 0 }
-        var exponent = UInt32((target.bitLength + 7) / 8)
+    public var compactBits: UInt32 {
+        if isZero { return 0 }
+        var exponent = UInt32((bitLength + 7) / 8)
         var mantissa: UInt64
         if exponent > 3 {
-            mantissa = (target >> (8 * Int(exponent - 3))).low64
+            mantissa = (self >> (8 * Int(exponent - 3))).low64
         } else {
-            mantissa = target.low64
+            mantissa = low64
             exponent = 3
         }
         if mantissa & 0x0080_0000 != 0 || mantissa >> 24 != 0 {

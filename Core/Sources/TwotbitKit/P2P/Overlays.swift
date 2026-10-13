@@ -56,7 +56,7 @@ public final class TorClient: OverlayClient {
         while !stopped.isFired && !Task.isCancelled {
             onState(.starting)
             for candidate in proxies {
-                guard let (host, port) = try? HostPort.split(candidate) else { continue }
+                guard let (host, port) = try? candidate.splitHostPort() else { continue }
                 do {
                     let stream = try await TCPStream.connect(host: host, port: port, timeout: .seconds(5))
                     defer { stream.close() }
@@ -92,10 +92,10 @@ public final class TorClient: OverlayClient {
             }
         }
         guard !stopped.isFired, let proxy = proxyAddress else { throw NetError(.closed, "tor client closed") }
-        let (proxyHost, proxyPort) = try HostPort.split(proxy)
+        let (proxyHost, proxyPort) = try proxy.splitHostPort()
         let stream = try await TCPStream.connect(host: proxyHost, port: proxyPort, timeout: .seconds(10))
         do {
-            try await withTimeout(timeout, "tor connect to \(HostPort.join(host, port))") {
+            try await withTimeout(timeout, "tor connect to \(host.withPort(port))") {
                 try await SOCKS5.connect(stream, host: host, port: port, isolate: true)
             }
             return stream
@@ -146,12 +146,12 @@ enum SOCKS5 {
             throw Failure(description: "SOCKS5 proxy accepts no offered authentication")
         }
         var request = Data([0x05, 0x01, 0x00])
-        if let ip = IPAddress.bytes(host), !host.contains(":") {
+        if let ip = host.ipBytes, !host.contains(":") {
             request.append(0x01)
             request.append(contentsOf: ip.suffix(4))
-        } else if IPAddress.isIP(host) {
+        } else if host.isIP {
             request.append(0x04)
-            request.append(contentsOf: IPAddress.bytes(host)!)
+            request.append(contentsOf: host.ipBytes!)
         } else {
             let name = Data(host.utf8)
             guard name.count <= 255 else { throw Failure(description: "host name too long") }
@@ -312,7 +312,7 @@ public final class I2PClient: OverlayClient {
     /// ignored, once the session is ready: it looks the name up and
     /// connects to the destination.
     public func dial(host: String, port: UInt16, timeout: Duration) async throws -> TCPStream {
-        guard Onion.isI2P(host) else { throw PeerError("\"\(host)\" is not an I2P b32 address") }
+        guard host.isI2P else { throw PeerError("\"\(host)\" is not an I2P b32 address") }
         let ready = session.withLock { $0.ready }
         let stopped = self.stopped
         try await withTimeout(timeout, "i2p not ready") {
@@ -346,7 +346,7 @@ public final class I2PClient: OverlayClient {
 
     /// Connects to the SAM bridge and agrees on SAM 3.1.
     private func hello() async throws -> TCPStream {
-        let (host, port) = try HostPort.split(sam)
+        let (host, port) = try sam.splitHostPort()
         let stream: TCPStream
         do {
             stream = try await TCPStream.connect(host: host, port: port, timeout: .seconds(10))

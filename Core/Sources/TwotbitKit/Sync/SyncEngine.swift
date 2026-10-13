@@ -182,7 +182,7 @@ public final class SyncEngine: Sendable {
     /// filters and take over once it has been away for pinnedFallbackAfter.
     public func start(pinned: String = "", onStatus: @escaping @Sendable (SyncStatus) -> Void) throws {
         if !pinned.isEmpty {
-            guard (try? HostPort.split(pinned)) != nil else { throw PeerError("peer address \"\(pinned)\" must include a port") }
+            guard (try? pinned.splitHostPort()) != nil else { throw PeerError("peer address \"\(pinned)\" must include a port") }
         }
         let tip = chainHeight
         manager.withLock { m in
@@ -249,7 +249,7 @@ public final class SyncEngine: Sendable {
     /// a pool connection to the new one, which is dialed again as pinned.
     public func setPinned(_ addr: String) throws {
         if !addr.isEmpty {
-            guard (try? HostPort.split(addr)) != nil else { throw PeerError("peer address \"\(addr)\" must include a port") }
+            guard (try? addr.splitHostPort()) != nil else { throw PeerError("peer address \"\(addr)\" must include a port") }
         }
         let change = manager.withLock { m -> (old: String, closing: [PeerConnection])? in
             guard !m.stopped, addr != m.pinnedAddr else { return nil }
@@ -328,7 +328,7 @@ public final class SyncEngine: Sendable {
 
     /// The dialer to reach the peer with, nil for a peer not dialed now.
     func dialer(for addr: String) -> (any Dialer)? {
-        guard let (host, _) = try? HostPort.split(addr) else { return nil }
+        guard let (host, _) = try? addr.splitHostPort() else { return nil }
         let network = OverlayNetwork.of(host)
         return manager.withLock { m -> (any Dialer)? in
             guard SyncEngine.allowed(network, m.overlays) else { return nil }

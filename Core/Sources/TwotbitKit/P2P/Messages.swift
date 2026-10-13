@@ -84,10 +84,10 @@ public struct NetAddress: Sendable, Hashable {
     /// The address of a host: its IP, or the unspecified address for an
     /// onion or I2P name, which the legacy encoding cannot carry.
     public init(host: String, port: UInt16, services: ServiceFlags = []) {
-        self.init(services: services, ip: IPAddress.bytes(host) ?? [UInt8](repeating: 0, count: 16), port: port)
+        self.init(services: services, ip: host.ipBytes ?? [UInt8](repeating: 0, count: 16), port: port)
     }
 
-    public var host: String { IPAddress.string(ip) }
+    public var host: String { ip.ipString }
 
     func write(to w: inout ByteWriter, withTime: Bool) {
         if withTime { w.writeUInt32(time) }
@@ -121,10 +121,10 @@ public struct NetAddressV2: Sendable, Hashable {
 
     public var host: String? {
         switch networkID {
-        case NetAddressV2.ipv4 where address.count == 4: return IPAddress.string([UInt8](address))
-        case NetAddressV2.ipv6 where address.count == 16: return IPAddress.string([UInt8](address))
-        case NetAddressV2.torV3 where address.count == 32: return Onion.address(key: address)
-        case NetAddressV2.i2p where address.count == 32: return Base32.encode(address) + ".b32.i2p"
+        case NetAddressV2.ipv4 where address.count == 4: return [UInt8](address).ipString
+        case NetAddressV2.ipv6 where address.count == 16: return [UInt8](address).ipString
+        case NetAddressV2.torV3 where address.count == 32: return address.onionAddress
+        case NetAddressV2.i2p where address.count == 32: return address.base32Encoded() + ".b32.i2p"
         default: return nil
         }
     }
@@ -413,7 +413,7 @@ public enum Wire {
         name += [UInt8](repeating: 0, count: 12 - name.count)
         w.write(name)
         w.writeUInt32(UInt32(payload.count))
-        w.write(Hashes.sha256d(payload).data.prefix(4))
+        w.write(payload.sha256d().data.prefix(4))
         w.write(payload)
         return w.data
     }
@@ -423,6 +423,10 @@ public enum Wire {
         public let command: String
         public let length: Int
         public let checksum: Data
+
+        public func checksumMatches(payload: Data) -> Bool {
+            payload.sha256d().data.prefix(4) == checksum
+        }
     }
 
     public static func parseHeader(_ data: Data) throws -> Header {
@@ -436,9 +440,5 @@ public enum Wire {
         guard length <= maxPayload else { throw DecodeError.invalid("payload of \(length) bytes exceeds the limit") }
         let checksum = try r.readBytes(4)
         return Header(magic: magic, command: command, length: length, checksum: checksum)
-    }
-
-    public static func checksumMatches(_ header: Header, payload: Data) -> Bool {
-        Hashes.sha256d(payload).data.prefix(4) == header.checksum
     }
 }

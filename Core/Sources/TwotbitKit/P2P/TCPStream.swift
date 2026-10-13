@@ -76,7 +76,7 @@ public final class TCPStream: Sendable {
         guard let nwPort = NWEndpoint.Port(rawValue: port) else { throw NetError(.other, "invalid port \(port)") }
         let connection = NWConnection(host: NWEndpoint.Host(host), port: nwPort, using: parameters)
         let queue = DispatchQueue(label: "twotbit.tcp.\(host)")
-        let stream = TCPStream(connection: connection, queue: queue, remote: HostPort.join(host, port))
+        let stream = TCPStream(connection: connection, queue: queue, remote: host.withPort(port))
         try await stream.start(timeout: timeout)
         return stream
     }

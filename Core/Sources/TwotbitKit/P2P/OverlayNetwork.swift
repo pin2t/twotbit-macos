@@ -17,8 +17,8 @@ public enum OverlayNetwork: Int, Sendable, Hashable, CaseIterable, CustomStringC
 
     /// The network a peer host is on.
     public static func of(_ host: String) -> OverlayNetwork {
-        if Onion.isOnion(host) { return .tor }
-        if Onion.isI2P(host) { return .i2p }
+        if host.isOnion { return .tor }
+        if host.isI2P { return .i2p }
         return .direct
     }
 }
@@ -32,7 +32,7 @@ public enum OverlayState: Sendable, Equatable {
 }
 
 /// Onion and I2P names.
-public enum Onion {
+enum Onion {
     /// The version byte of a v3 onion address, and the length of its name
     /// without the ".onion" suffix: the base32 encoding of the 32-byte
     /// service key, a 2-byte checksum and the version.
@@ -43,40 +43,44 @@ public enum Onion {
     /// base32 encoding of the SHA-256 hash of the destination.
     static let i2pLength = 52
 
+    static func checksum(_ key: Data) -> Data {
+        (Data(".onion checksum".utf8) + key + Data([version])).sha3_256().prefix(2)
+    }
+}
+
+extension String {
     /// Whether the host is a v3 onion service address with a valid
     /// checksum.
-    public static func isOnion(_ host: String) -> Bool { key(of: host) != nil }
+    public var isOnion: Bool { onionKey != nil }
 
     /// The 32-byte service key of a v3 onion address, its version and
     /// checksum checked.
-    public static func key(of host: String) -> Data? {
-        let lower = host.lowercased()
+    public var onionKey: Data? {
+        let lower = lowercased()
         guard lower.hasSuffix(".onion") else { return nil }
         let name = String(lower.dropLast(6))
-        guard name.utf8.count == nameLength, let raw = Base32.decode(name), raw.count == 35 else { return nil }
+        guard name.utf8.count == Onion.nameLength, let raw = name.base32Decoded(), raw.count == 35 else { return nil }
         let key = raw.prefix(32)
-        guard raw[raw.startIndex + 34] == version, raw.subdata(in: raw.startIndex + 32..<raw.startIndex + 34) == checksum(Data(key)) else {
+        guard raw[raw.startIndex + 34] == Onion.version, raw.subdata(in: raw.startIndex + 32..<raw.startIndex + 34) == Onion.checksum(Data(key)) else {
             return nil
         }
         return Data(key)
     }
 
-    /// The v3 onion address of a 32-byte service key, as rend-spec-v3 and
-    /// BIP155 define it.
-    public static func address(key: Data) -> String {
-        Base32.encode(key + checksum(key) + Data([version])) + ".onion"
-    }
-
-    static func checksum(_ key: Data) -> Data {
-        SHA3_256.hash(Data(".onion checksum".utf8) + key + Data([version])).prefix(2)
-    }
-
     /// Whether the host is an I2P b32 address.
-    public static func isI2P(_ host: String) -> Bool {
-        let lower = host.lowercased()
+    public var isI2P: Bool {
+        let lower = lowercased()
         guard lower.hasSuffix(".b32.i2p") else { return false }
         let name = String(lower.dropLast(8))
-        guard name.utf8.count == i2pLength, let raw = Base32.decode(name) else { return false }
+        guard name.utf8.count == Onion.i2pLength, let raw = name.base32Decoded() else { return false }
         return raw.count == 32
+    }
+}
+
+extension Data {
+    /// The v3 onion address of a 32-byte service key, as rend-spec-v3 and
+    /// BIP155 define it.
+    public var onionAddress: String {
+        (self + Onion.checksum(self) + Data([Onion.version])).base32Encoded() + ".onion"
     }
 }
