@@ -2,9 +2,9 @@ import SwiftUI
 import TwotbitKit
 
 /// HomeView is the wallet at a glance: the QR code of the current receive
-/// address with the address under it and a copy button after it, the
-/// balance with the incoming pending part next to it and its worth in US
-/// dollars under it, the Receive and Send buttons, and the wallet
+/// address with the address under it, grouped by fours, and a copy button
+/// after it, the balance with the incoming pending part next to it and its
+/// worth in US dollars under it, the Receive and Send buttons, and the wallet
 /// statistics at the bottom. In a wide window the transactions list
 /// alongside it at the right.
 struct HomeView: View {
@@ -24,13 +24,20 @@ struct HomeView: View {
         }
     }
 
+    /// The side of the QR code, and the room it takes in the layout: the
+    /// code grows up past that room, into the space above it, so it does
+    /// not push what is under it down.
+    static let qrSide: CGFloat = 300
+    static let qrRoom: CGFloat = 240
+
     private var main: some View {
         VStack(spacing: 0) {
-            Spacer(minLength: 16)
-            QRCodeView(text: model.address)
+            Spacer(minLength: 16 + HomeView.qrSide - HomeView.qrRoom)
+            QRCodeView(text: model.address, side: HomeView.qrSide)
+                .frame(height: HomeView.qrRoom, alignment: .bottom)
             HStack(spacing: 6) {
-                Text(model.address)
-                    .font(.system(.body, design: .monospaced))
+                Text(Format.groupAddress(model.address))
+                    .font(.system(.title3, design: .monospaced))
                     .textSelection(.enabled)
                 CopyButton(help: "Copy the address") { model.copy(model.address, "Address") }
             }

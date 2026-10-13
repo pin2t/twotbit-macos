@@ -98,9 +98,9 @@ struct TransactionCard: View {
     }
 }
 
-/// AddressList stacks addresses closely, each shortened to fit, the
-/// wallet's own in bold and unknown ones in italics, aligned right when
-/// trailing.
+/// AddressList stacks addresses closely, grouped by fours and each
+/// shortened to fit, the wallet's own in bold and unknown ones in italics,
+/// aligned right when trailing.
 struct AddressList: View {
     let addresses: [TxAddress]
     let trailing: Bool
@@ -121,7 +121,7 @@ struct AddressList: View {
                 rows.append(AnyView(Text("\(addresses.count - i) more").italic().font(.callout)))
                 break
             }
-            let text = a.address.isEmpty ? "unknown" : a.address
+            let text = a.address.isEmpty ? "unknown" : Format.groupAddress(a.address)
             rows.append(AnyView(
                 Text(text)
                     .font(.system(.callout, design: .monospaced))

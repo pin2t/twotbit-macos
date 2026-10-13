@@ -44,10 +44,14 @@ struct ConnectionStatus: View {
 
 /// QRCodeView draws the QR code of a text dark on a light card with the
 /// quiet zone scanners need around it, its square modules aligned to
-/// whole points so the code stays crisp.
+/// whole points so the code stays crisp, and the bitcoin logo in its
+/// middle. The code is at level Q, so it still reads with the modules
+/// under the logo left out.
 struct QRCodeView: View {
     let text: String
     var side: CGFloat = 240
+    /// How much of the code's side the logo spans.
+    static let logo = 0.24
 
     /// The codes of the texts shown last, as views redraw on every sync
     /// status while the text stays the same.
@@ -55,7 +59,7 @@ struct QRCodeView: View {
 
     @MainActor private static func code(_ text: String) -> QRCode? {
         if let code = cache[text] { return code }
-        guard let code = QRCode(text) else { return nil }
+        guard let code = QRCode(text, correction: "Q") else { return nil }
         if cache.count > 16 { cache.removeAll() }
         cache[text] = code
         return code
@@ -69,13 +73,25 @@ struct QRCodeView: View {
             let total = code.size + 2 * quiet
             let cell = floor(min(size.width, size.height) / CGFloat(total))
             let origin = floor((min(size.width, size.height) - cell * CGFloat(total)) / 2) + cell * CGFloat(quiet)
+            let hole = code.center(QRCodeView.logo)
             var path = Path()
             for y in 0..<code.size {
-                for x in 0..<code.size where code.isDark(x: x, y: y) {
+                for x in 0..<code.size where code.isDark(x: x, y: y) && !(hole.contains(x) && hole.contains(y)) {
                     path.addRect(CGRect(x: origin + CGFloat(x) * cell, y: origin + CGFloat(y) * cell, width: cell, height: cell))
                 }
             }
             context.fill(path, with: .color(.black))
+            let start = origin + CGFloat(hole.lowerBound) * cell
+            let span = CGFloat(hole.count) * cell
+            let disc = CGRect(x: start, y: start, width: span, height: span).insetBy(dx: cell / 2, dy: cell / 2)
+            context.fill(Path(ellipseIn: disc), with: .color(Color(red: 0.969, green: 0.576, blue: 0.102)))
+            let mark = Text(Image(systemName: "bitcoinsign"))
+                .font(.system(size: disc.width * 0.6, weight: .bold))
+                .foregroundStyle(.white)
+            var tilted = context
+            tilted.translateBy(x: disc.midX, y: disc.midY)
+            tilted.rotate(by: .degrees(14))
+            tilted.draw(mark, at: .zero, anchor: .center)
         }
         .frame(width: side, height: side)
         .background(.white, in: RoundedRectangle(cornerRadius: 12))
