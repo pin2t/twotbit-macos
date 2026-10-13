@@ -96,14 +96,21 @@ func withTempStore<T>(_ body: (Store, URL) throws -> T) throws -> T {
             try store.deleteRescan(RescanJob(address: "x", from: 50))
             #expect(try store.rescans().map(\.address) == ["y"])
 
-            try store.savePeer(host: "1.2.3.4", port: 8333)
-            try store.recordPeerResult(host: "1.2.3.4", port: 8333, ok: true, latencyMs: 40)
-            try store.recordPeerResult(host: "1.2.3.4", port: 8333, ok: false, latencyMs: 90)
-            try store.upsertPeer(host: "1.2.3.4", port: 8333, services: 1097, latencyMs: 30)
-            try store.updatePeerServices(host: "abc.onion", port: 8333, services: 64)
+            try store.savePeer(host: "1.2.3.4", port: 8333, now: 100)
+            try store.savePeer(host: "1.2.3.4", port: 8333, now: 150)
+            try store.recordPeerResult(host: "1.2.3.4", port: 8333, ok: true, latencyMs: 40, now: 200)
+            try store.recordPeerResult(host: "1.2.3.4", port: 8333, ok: false, latencyMs: 90, now: 300)
+            try store.upsertPeer(host: "1.2.3.4", port: 8333, services: 1097, latencyMs: 30, now: 400)
+            try store.peerConnectFailed(host: "1.2.3.4", port: 8333, now: 500)
+            try store.updatePeerServices(host: "abc.onion", port: 8333, services: 64, now: 600)
+            try store.peerConnectFailed(host: "5.6.7.8", port: 8333, now: 700)
             let peers = try store.peers().sorted { $0.host < $1.host }
-            #expect(peers == [PeerRecord(host: "1.2.3.4", port: 8333, services: 1097, latencyMs: 30, okCount: 1, failCount: 1),
-                              PeerRecord(host: "abc.onion", port: 8333, services: 64, latencyMs: 0, okCount: 0, failCount: 0)])
+            #expect(peers == [PeerRecord(host: "1.2.3.4", port: 8333, services: 1097, latencyMs: 30, okCount: 1, failCount: 2,
+                                         addedAt: 100, connectedAt: 400, failedAt: 500),
+                              PeerRecord(host: "5.6.7.8", port: 8333, services: 0, latencyMs: 0, okCount: 0, failCount: 1,
+                                         addedAt: 700, connectedAt: 0, failedAt: 700),
+                              PeerRecord(host: "abc.onion", port: 8333, services: 64, latencyMs: 0, okCount: 0, failCount: 0,
+                                         addedAt: 600, connectedAt: 0, failedAt: 0)])
 
             #expect(try store.setting(Store.settingTor) == "")
             try store.setSetting(Store.settingTor, "on")
@@ -117,6 +124,64 @@ func withTempStore<T>(_ body: (Store, URL) throws -> T) throws -> T {
             try store.addRate(Rate(time: 5, cents: 50))
             #expect(try store.latestRate() == Rate(time: 5, cents: 50))
         }
+    }
+
+    /// Peers added recently, or connected to recently and answering, are
+    /// worth more than peers added long ago or failing recently.
+    @Test func peerValue() {
+        let now: Int64 = 10_000_000, day: Int64 = 86_400
+        func peer(added: Int64, connected: Int64 = 0, failed: Int64 = 0, ok: Int64 = 0, fail: Int64 = 0) -> Double {
+            PeerRecord(host: "h", port: 1, services: 0, latencyMs: 0, okCount: ok, failCount: fail,
+                       addedAt: added, connectedAt: connected, failedAt: failed).value(now: now)
+        }
+        let fresh = peer(added: now)
+        let stale = peer(added: now - 30 * day)
+        let reliable = peer(added: now - 30 * day, connected: now - 3600, ok: 50, fail: 2)
+        let reliableLongAgo = peer(added: now - 30 * day, connected: now - 20 * day, ok: 50, fail: 2)
+        let failing = peer(added: now - day, connected: now - 20 * day, failed: now - 60, ok: 1, fail: 9)
+        #expect(reliable > fresh)
+        #expect(fresh > reliableLongAgo)
+        #expect(reliableLongAgo > stale)
+        #expect(stale > failing)
+        #expect(peer(added: now, connected: now, ok: 10) > peer(added: now, connected: now, ok: 10, fail: 10))
+        #expect(peer(added: now - day, connected: now - day, ok: 5) > peer(added: now - day, connected: now - 2 * day, ok: 5))
+    }
+
+    /// Past the limit the table is cut back to the most valuable peers, the
+    /// spared ones kept whatever their value.
+    @Test func prunePeers() throws {
+        try withTempStore { store, _ in
+            for i in 0..<10 { try store.savePeer(host: "10.0.0.\(i)", port: 8333, now: Int64(1000 + i)) }
+            try store.upsertPeer(host: "10.0.0.0", port: 8333, services: 0, latencyMs: 1, now: 2000)
+            #expect(try store.prunePeers(max: 10, keep: 4, now: 2000) == 0)
+            try store.savePeer(host: "10.0.0.10", port: 8333, now: 1010)
+            #expect(try store.prunePeers(max: 10, keep: 4, sparing: ["10.0.0.1:8333"], now: 2000) == 7)
+            let left = try store.peers().map(\.host).sorted()
+            #expect(left == ["10.0.0.0", "10.0.0.1", "10.0.0.10", "10.0.0.9"])
+        }
+    }
+
+    /// A database made before the peer times were stored gains the columns,
+    /// its peers counted as added when it is opened.
+    @Test func peerTimesMigration() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("twotbit-test-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: dir) }
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let path = dir.appendingPathComponent("old.db").path
+        let db = try SQLiteDatabase(path: path)
+        try db.execute("""
+            create table peers (host text not null, port integer not null, services integer not null default 0,
+            latencyMs integer not null default 0, okCount integer not null default 0, failCount integer not null default 0,
+            primary key (host, port));
+            insert into peers (host, port, okCount) values ('1.2.3.4', 8333, 3);
+            """)
+        db.close()
+        let before = Int64(Date().timeIntervalSince1970)
+        let store = try Store.open(path: path)
+        defer { store.close() }
+        let peer = try #require(try store.peers().first)
+        #expect(peer.okCount == 3 && peer.connectedAt == 0 && peer.failedAt == 0)
+        #expect(peer.addedAt >= before)
     }
 
     @Test func walletLoader() throws {

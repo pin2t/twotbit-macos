@@ -69,7 +69,9 @@ public struct RescanJob: Sendable, Equatable {
     public var from: Int32
 }
 
-/// PeerRecord is one known peer with its connection statistics.
+/// PeerRecord is one known peer with its connection statistics: the
+/// requests it answered and failed, and the unix times it was first stored,
+/// last connected and last failed to connect, 0 for never.
 public struct PeerRecord: Sendable, Equatable {
     public var host: String
     public var port: UInt16
@@ -77,6 +79,20 @@ public struct PeerRecord: Sendable, Equatable {
     public var latencyMs: Int64
     public var okCount: Int64
     public var failCount: Int64
+    public var addedAt: Int64 = 0
+    public var connectedAt: Int64 = 0
+    public var failedAt: Int64 = 0
+
+    /// How worth dialing and keeping the peer is: high for a peer added
+    /// recently, and for one connected to recently that answers most of its
+    /// requests; low for one added long ago, or failing recently and most
+    /// of the time without a recent connection. Each time counts by its
+    /// freshness, 1 now, ½ a day ago, falling to 0 for never.
+    public func value(now: Int64) -> Double {
+        func fresh(_ t: Int64) -> Double { t == 0 ? 0 : 1 / (1 + Double(max(now - t, 0)) / 86_400) }
+        let rate = Double(okCount + 1) / Double(okCount + failCount + 2)
+        return fresh(addedAt) + 2 * fresh(connectedAt) * rate - fresh(failedAt) * (1 - rate)
+    }
 }
 
 /// Rate is the price of one bitcoin in US cents at a unix time.
@@ -90,10 +106,11 @@ public struct Rate: Sendable, Equatable {
     }
 }
 
-/// Store keeps the wallet in an SQLite database, with the same schema as
-/// bitfyn's: the wallet metadata and addresses, the validated header chain,
-/// filter headers and matches, wallet transactions, known peers, rates and
-/// settings. Calls are serialized; it is safe to use from any thread.
+/// Store keeps the wallet in an SQLite database: the wallet metadata and
+/// addresses, the validated header chain, filter headers and matches,
+/// wallet transactions, known peers, rates and settings. It opens
+/// databases of bitfyn and earlier versions and upgrades them in place.
+/// Calls are serialized; it is safe to use from any thread.
 public final class Store: Sendable {
     /// The settings keys: the pinned peer's host:port, and "on" while Tor or
     /// I2P is on.
@@ -160,8 +177,11 @@ public final class Store: Sendable {
         port      integer not null,
         services  integer not null default 0,
         latencyMs integer not null default 0,
-        okCount   integer not null default 0,
-        failCount integer not null default 0,
+        okCount     integer not null default 0,
+        failCount   integer not null default 0,
+        addedAt     integer not null default 0,
+        connectedAt integer not null default 0,
+        failedAt    integer not null default 0,
         primary key (host, port)
     );
     create table if not exists rates (
@@ -197,11 +217,27 @@ public final class Store: Sendable {
         do {
             try db.execute("pragma journal_mode = wal; pragma synchronous = normal;")
             try db.execute(schema)
+            try migrate(db)
         } catch let error as SQLiteError where error.code == 26 {
             throw SQLiteError(code: 26, message: "cannot read the wallet database (encrypted or not a database): \(error.message)")
         }
         chmod(path, 0o600)
         return Store(db: db, path: path)
+    }
+
+    /// Brings a database made by an earlier version up to the schema: the
+    /// peers' times were added later, and peers stored before count as
+    /// added now.
+    static func migrate(_ db: SQLiteDatabase) throws {
+        var columns = Set<String>()
+        try db.run("pragma table_info(peers)") { row in columns.insert(row.text(1)) }
+        guard !columns.contains("addedAt") else { return }
+        try db.transaction {
+            for column in ["addedAt", "connectedAt", "failedAt"] {
+                try db.execute("alter table peers add column \(column) integer not null default 0")
+            }
+            try db.run("update peers set addedAt = ?", [.int(unixNow)])
+        }
     }
 
     /// Opens an existing database only to read it, changing nothing of the
@@ -480,51 +516,102 @@ public final class Store: Sendable {
 
     // MARK: Peers
 
-    /// Records a known peer address. Idempotent.
-    public func savePeer(host: String, port: UInt16) throws {
-        try with { db in try db.run("insert or ignore into peers (host, port) values (?, ?)", [.text(host), .int(Int64(port))]) }
+    /// The peer table is cut back to keepPeers peers, the most valuable,
+    /// once it grows past maxPeers.
+    public static let maxPeers = 3000
+    public static let keepPeers = 1000
+
+    /// The current unix time, the default of the peer times.
+    public static var unixNow: Int64 { Int64(Date().timeIntervalSince1970) }
+
+    /// Records a known peer address, added now unless known already.
+    public func savePeer(host: String, port: UInt16, now: Int64 = Store.unixNow) throws {
+        try with { db in
+            try db.run("insert or ignore into peers (host, port, addedAt) values (?, ?, ?)", [.text(host), .int(Int64(port)), .int(now)])
+        }
     }
 
-    /// Stores the services and handshake latency of a connected peer.
-    public func upsertPeer(host: String, port: UInt16, services: UInt64, latencyMs: Int64) throws {
+    /// Stores the services and handshake latency of a peer just connected
+    /// to.
+    public func upsertPeer(host: String, port: UInt16, services: UInt64, latencyMs: Int64, now: Int64 = Store.unixNow) throws {
         try with { db in
             try db.run("""
-                insert into peers (host, port, services, latencyMs, okCount, failCount) values (?, ?, ?, ?, 0, 0)
-                on conflict(host, port) do update set services = excluded.services, latencyMs = excluded.latencyMs
-                """, [.text(host), .int(Int64(port)), .int(Int64(bitPattern: services)), .int(latencyMs)])
+                insert into peers (host, port, services, latencyMs, addedAt, connectedAt) values (?, ?, ?, ?, ?, ?)
+                on conflict(host, port) do update set services = excluded.services, latencyMs = excluded.latencyMs,
+                connectedAt = excluded.connectedAt
+                """, [.text(host), .int(Int64(port)), .int(Int64(bitPattern: services)), .int(latencyMs), .int(now), .int(now)])
+        }
+    }
+
+    /// Records a failed attempt to connect to the peer: a failure counted
+    /// and the time.
+    public func peerConnectFailed(host: String, port: UInt16, now: Int64 = Store.unixNow) throws {
+        try with { db in
+            try db.run("""
+                insert into peers (host, port, failCount, addedAt, failedAt) values (?, ?, 1, ?, ?)
+                on conflict(host, port) do update set failCount = failCount + 1, failedAt = excluded.failedAt
+                """, [.text(host), .int(Int64(port)), .int(now), .int(now)])
         }
     }
 
     /// Stores the advertised services of a gossiped peer.
-    public func updatePeerServices(host: String, port: UInt16, services: UInt64) throws {
+    public func updatePeerServices(host: String, port: UInt16, services: UInt64, now: Int64 = Store.unixNow) throws {
         try with { db in
             try db.run("""
-                insert into peers (host, port, services) values (?, ?, ?)
+                insert into peers (host, port, services, addedAt) values (?, ?, ?, ?)
                 on conflict(host, port) do update set services = excluded.services
-                """, [.text(host), .int(Int64(port)), .int(Int64(bitPattern: services))])
+                """, [.text(host), .int(Int64(port)), .int(Int64(bitPattern: services)), .int(now)])
         }
     }
 
     /// Counts one successful or failed request against a peer and stores
     /// its latency.
-    public func recordPeerResult(host: String, port: UInt16, ok: Bool, latencyMs: Int64) throws {
+    public func recordPeerResult(host: String, port: UInt16, ok: Bool, latencyMs: Int64, now: Int64 = Store.unixNow) throws {
         try with { db in
             try db.run("""
-                insert into peers (host, port, latencyMs, okCount, failCount) values (?, ?, ?, ?, ?)
+                insert into peers (host, port, latencyMs, okCount, failCount, addedAt) values (?, ?, ?, ?, ?, ?)
                 on conflict(host, port) do update set latencyMs = excluded.latencyMs,
                 okCount = okCount + excluded.okCount, failCount = failCount + excluded.failCount
-                """, [.text(host), .int(Int64(port)), .int(latencyMs), .int(ok ? 1 : 0), .int(ok ? 0 : 1)])
+                """, [.text(host), .int(Int64(port)), .int(latencyMs), .int(ok ? 1 : 0), .int(ok ? 0 : 1), .int(now)])
         }
     }
 
     public func peers() throws -> [PeerRecord] {
+        try with { db in try Store.peers(db) }
+    }
+
+    static func peers(_ db: SQLiteDatabase) throws -> [PeerRecord] {
+        var out = [PeerRecord]()
+        try db.run("select host, port, services, latencyMs, okCount, failCount, addedAt, connectedAt, failedAt from peers") { row in
+            out.append(PeerRecord(host: row.text(0), port: UInt16(truncatingIfNeeded: row.int(1)), services: UInt64(bitPattern: row.int(2)),
+                                  latencyMs: row.int(3), okCount: row.int(4), failCount: row.int(5),
+                                  addedAt: row.int(6), connectedAt: row.int(7), failedAt: row.int(8)))
+        }
+        return out
+    }
+
+    /// Once more than max peers are stored, deletes the least valuable
+    /// ones down to keep, never the kept host:port addresses, as the pinned
+    /// and connected peers. It returns how many were deleted.
+    @discardableResult
+    public func prunePeers(max: Int = Store.maxPeers, keep: Int = Store.keepPeers, sparing kept: Set<String> = [],
+                           now: Int64 = Store.unixNow) throws -> Int {
         try with { db in
-            var out = [PeerRecord]()
-            try db.run("select host, port, services, latencyMs, okCount, failCount from peers") { row in
-                out.append(PeerRecord(host: row.text(0), port: UInt16(truncatingIfNeeded: row.int(1)), services: UInt64(bitPattern: row.int(2)),
-                                      latencyMs: row.int(3), okCount: row.int(4), failCount: row.int(5)))
+            guard let count = try db.scalar("select count(*) from peers"), count > max else { return 0 }
+            let ranked = try Store.peers(db).sorted { $0.value(now: now) > $1.value(now: now) }
+            var room = keep - ranked.filter { kept.contains($0.host.withPort($0.port)) }.count
+            var doomed = [PeerRecord]()
+            for p in ranked where !kept.contains(p.host.withPort(p.port)) {
+                if room > 0 {
+                    room -= 1
+                } else {
+                    doomed.append(p)
+                }
             }
-            return out
+            try db.transaction {
+                for p in doomed { try db.run("delete from peers where host = ? and port = ?", [.text(p.host), .int(Int64(p.port))]) }
+            }
+            return doomed.count
         }
     }
 

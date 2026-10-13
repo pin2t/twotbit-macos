@@ -82,8 +82,8 @@ under Signing & Capabilities keeps the signature stable and avoids that.
 
 ### Moving a bitfyn wallet over
 
-Twotbit uses bitfyn's database schema. To continue with an unencrypted
-bitfyn wallet, quit both apps and copy the database across, such as
+Twotbit opens bitfyn's databases and upgrades them in place. To continue
+with an unencrypted bitfyn wallet, quit both apps and copy the database across, such as
 `~/.bitfyn/bitfyn.db` to `~/Library/Application Support/Twotbit/twotbit.db`
 (`bitfyn-signet.db` to `twotbit-signet.db`, and so on). On first open the
 phrase moves from the database into the Keychain; the synced headers,

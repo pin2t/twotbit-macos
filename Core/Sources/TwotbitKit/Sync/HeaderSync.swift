@@ -273,18 +273,19 @@ extension SyncEngine {
         guard let dialer = dialer(for: addr) else { throw PeerError("peer \(addr) not dialed on the networks on") }
         let (host, port) = try addr.splitHostPort()
         let c: PeerConnection
+        let handshake: Duration
         do {
-            (c, _) = try await PeerConnection.connect(network: network, address: addr, dialer: dialer, relay: false) { [weak self] c, message in
+            (c, handshake) = try await PeerConnection.connect(network: network, address: addr, dialer: dialer, relay: false) { [weak self] c, message in
                 if case .addr = message { self?.handle(c, message) }
                 if case .addrV2 = message { self?.handle(c, message) }
             }
         } catch {
-            try? store.recordPeerResult(host: host, port: port, ok: false, latencyMs: 0)
+            try? store.peerConnectFailed(host: host, port: port)
             throw error
         }
         defer { c.disconnect() }
         do {
-            try store.updatePeerServices(host: host, port: port, services: c.services.rawValue)
+            try store.upsertPeer(host: host, port: port, services: c.services.rawValue, latencyMs: handshake.milliseconds)
         } catch {
             Log.info("store peer \(addr): \(error)")
         }

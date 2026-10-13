@@ -206,22 +206,27 @@ extension SyncEngine {
     }
 
     /// The peers to fill the pool with: stored and freshly discovered peers
-    /// on the allowed networks in random order, without the pinned peer.
-    /// Stored peers known not to serve compact filters are skipped. Peers on
-    /// the internet come from the store and the DNS seeds, onion and I2P
-    /// peers from the store and their built-in seeds, with no DNS lookup.
-    /// An empty list is an error only without a pinned peer.
+    /// on the allowed networks, without the pinned peer, the most valuable
+    /// first: those added recently, and those connected to recently that
+    /// answer most requests. Seeds not stored yet count as added now, and
+    /// peers of equal value come in random order. Stored peers known not to
+    /// serve compact filters are skipped. Peers on the internet come from
+    /// the store and the DNS seeds, onion and I2P peers from the store and
+    /// their built-in seeds, with no DNS lookup. An empty list is an error
+    /// only without a pinned peer.
     func peerCandidates(pinned: String, allowed: [OverlayNetwork]) async throws -> [String] {
-        var list = [String]()
+        let now = Store.unixNow
+        let newcomer = PeerRecord(host: "", port: 0, services: 0, latencyMs: 0, okCount: 0, failCount: 0, addedAt: now).value(now: now)
+        var list = [(addr: String, value: Double)]()
         var seen: Set<String> = [pinned]
-        func add(_ addr: String) {
+        func add(_ addr: String, _ value: Double) {
             guard !addr.isEmpty, seen.insert(addr).inserted else { return }
-            list.append(addr)
+            list.append((addr, value))
         }
         for p in try store.peers() {
             if p.services != 0 && !ServiceFlags(rawValue: p.services).contains(.compactFilters) { continue }
             if !allowed.contains(OverlayNetwork.of(p.host)) { continue }
-            add(p.host.withPort(p.port))
+            add(p.host.withPort(p.port), p.value(now: now))
         }
         for n in allowed {
             let seeds: [PeerAddress]
@@ -230,16 +235,17 @@ extension SyncEngine {
             case .tor: seeds = Seeds.onion(for: network)
             case .i2p: seeds = Seeds.i2p(for: network)
             }
-            for seed in seeds { add(seed.description) }
+            for seed in seeds { add(seed.description, newcomer) }
         }
         list.shuffle()
+        list = list.stableSorted { $0.value > $1.value }
         if list.isEmpty && pinned.isEmpty {
             if !allowed.contains(.direct) {
                 throw PeerError("no \(allowed.map(\.description).joined(separator: " or ")) peer addresses for network \(network.name)")
             }
             throw PeerError("no peer addresses for network \(network.name) (pass -peer or run a local node)")
         }
-        return list
+        return list.map(\.addr)
     }
 
     /// Dials one candidate and adds it to the pool, reporting whether it
@@ -258,7 +264,7 @@ extension SyncEngine {
         } catch {
             if Task.isCancelled { return false }
             Log.info("peer \(addr): connect failed: \(error)")
-            try? store.recordPeerResult(host: host, port: port, ok: false, latencyMs: 0)
+            try? store.peerConnectFailed(host: host, port: port)
             return false
         }
         do {
@@ -353,11 +359,13 @@ extension SyncEngine {
             }
         case .addr(let list):
             for a in list { savePeerAddr(a.host, a.port, a.services) }
+            prunePeers()
         case .addrV2(let list):
             for a in list {
                 guard let host = a.host, host.isOnion || host.isIP else { continue }
                 savePeerAddr(host, a.port, a.services)
             }
+            prunePeers()
         default:
             break
         }
@@ -370,6 +378,18 @@ extension SyncEngine {
             try? store.updatePeerServices(host: host, port: port, services: services.rawValue)
         } else {
             try? store.savePeer(host: host, port: port)
+        }
+    }
+
+    /// Cuts the stored peers back to the most valuable once gossip grew them
+    /// past Store.maxPeers, keeping the pinned and connected peers.
+    func prunePeers() {
+        let kept = manager.withLock { m in Set(m.pool.map(\.address) + [m.pinnedAddr]) }
+        do {
+            let n = try store.prunePeers(sparing: kept)
+            if n > 0 { Log.info("peers: removed \(n) least valuable stored peers") }
+        } catch {
+            Log.info("prune peers: \(error)")
         }
     }
 
