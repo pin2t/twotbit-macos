@@ -18,7 +18,7 @@ import Testing
         try store.saveMeta(mnemonic: WalletTests.vectorMnemonic, xpub: wallet.accountXPub, network: "regtest", createdAt: now - 47 * 24 * 3600)
         for i: UInt32 in 0..<6 { try store.addAddress(wallet.receiveAddress(i)) }
         try store.addChangeAddress(wallet.changeAddress(0))
-        try RateService.seed(store)
+        try Rates.seed(store)
         try store.addRate(Rate(time: now, cents: 11_234_567))
 
         var chain = ChainBuilder(time: UInt32(now - 50 * 24 * 3600))
