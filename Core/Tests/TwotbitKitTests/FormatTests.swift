@@ -143,21 +143,21 @@ import Testing
     }
 
     @Test func rates() throws {
-        let embedded = try RateService.embeddedHistory()
+        let embedded = try Rates.embeddedHistory()
         #expect(embedded.count > 20_000)
         #expect(embedded.first == Rate(time: 1_282_089_600, cents: 7))
         for bad in ["", "time,usd\n1,2\n", "ts,cents\n1,x\n", "ts,cents\n1,0\n", "ts,cents\n1\n"] {
-            #expect(throws: RateError.self, "\(bad)") { try RateService.parseCSV(bad) }
+            #expect(throws: RateError.self, "\(bad)") { try Rates.parseCSV(bad) }
         }
         let combine: [([Int64], Int64)] = [([100, 101, 103], 101), ([100, 101, 102], 101), ([90, 95, 100], 95), ([89, 95, 100], 100), ([100, 100, 50], 100), ([6_500_012], 6_500_012), ([3, 4], 4)]
-        for (input, want) in combine { #expect(RateService.combine(input) == want, "\(input)") }
-        #expect(try RateService.toCents(RateService.parseCoinbase(Data(#"{"data":{"amount":"65000.126","base":"BTC","currency":"USD"}}"#.utf8))) == 6_500_013)
-        #expect(try RateService.toCents(RateService.parseKraken(Data(#"{"error":[],"result":{"XXBTZUSD":{"a":["1"],"c":["64999.9","0.1"]}}}"#.utf8))) == 6_499_990)
-        #expect(try RateService.toCents(RateService.parseBitstamp(Data(#"{"last":"65001","bid":"65000"}"#.utf8))) == 6_500_100)
-        #expect(throws: RateError.self) { try RateService.parseKraken(Data(#"{"error":["EQuery:Unknown asset pair"]}"#.utf8)) }
-        #expect(throws: RateError.self) { try RateService.toCents("") }
+        for (input, want) in combine { #expect(Rates.combine(input) == want, "\(input)") }
+        #expect(try Rates.toCents(Rates.parseCoinbase(Data(#"{"data":{"amount":"65000.126","base":"BTC","currency":"USD"}}"#.utf8))) == 6_500_013)
+        #expect(try Rates.toCents(Rates.parseKraken(Data(#"{"error":[],"result":{"XXBTZUSD":{"a":["1"],"c":["64999.9","0.1"]}}}"#.utf8))) == 6_499_990)
+        #expect(try Rates.toCents(Rates.parseBitstamp(Data(#"{"last":"65001","bid":"65000"}"#.utf8))) == 6_500_100)
+        #expect(throws: RateError.self) { try Rates.parseKraken(Data(#"{"error":["EQuery:Unknown asset pair"]}"#.utf8)) }
+        #expect(throws: RateError.self) { try Rates.toCents("") }
         try withTempStore { store, _ in
-            try RateService.seed(store)
+            try Rates.seed(store)
             #expect(try store.latestRate() == embedded.last)
         }
     }

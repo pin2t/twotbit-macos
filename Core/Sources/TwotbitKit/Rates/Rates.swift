@@ -1,11 +1,11 @@
 import Foundation
 import Synchronization
 
-/// RateService keeps the BTC/USD rate table up to date. The table is seeded
+/// Rates keeps the BTC/USD rate table up to date. The table is seeded
 /// from the history shipped with the app, and while the app runs a
 /// background loop records a fresh rate from public exchange APIs whenever
 /// the latest stored one gets old.
-public final class RateService: Sendable {
+public final class Rates: Sendable {
     /// How often the loop looks at the age of the latest rate, and the age
     /// from which it is refreshed.
     static let checkInterval: Duration = .seconds(600)
@@ -71,8 +71,8 @@ public final class RateService: Sendable {
         let store = self.store
         let task = Task.detached {
             while !Task.isCancelled {
-                if let rate = await RateService.refresh(store, now: Int64(Date().timeIntervalSince1970)) { onRate(rate) }
-                guard await pause(RateService.checkInterval) else { return }
+                if let rate = await Rates.refresh(store, now: Int64(Date().timeIntervalSince1970)) { onRate(rate) }
+                guard await pause(Rates.checkInterval) else { return }
             }
         }
         self.task.withLock { $0 = task }

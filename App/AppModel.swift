@@ -105,7 +105,7 @@ final class AppModel {
     @ObservationIgnored private(set) var wallet: HDWallet?
     @ObservationIgnored private(set) var store: Store?
     @ObservationIgnored private(set) var engine: SyncEngine?
-    @ObservationIgnored private var rates: RateService?
+    @ObservationIgnored private var rates: Rates?
     @ObservationIgnored private var index: UInt32 = 0
     @ObservationIgnored private var torClient: TorClient?
     @ObservationIgnored private var i2pClient: I2PClient?
@@ -147,7 +147,7 @@ final class AppModel {
                     return .failure(error)
                 }
                 do {
-                    try RateService.seed(opened.store)
+                    try Rates.seed(opened.store)
                 } catch {
                     Log.info("rates: \(error)")
                 }
@@ -201,7 +201,7 @@ final class AppModel {
             Log.info("sync failed to start: \(error)")
             show("Sync failed: \(error)", error: true)
         }
-        let rates = RateService(store: opened.store)
+        let rates = Rates(store: opened.store)
         rates.start { [weak self] rate in
             DispatchQueue.main.async { self?.rate = rate.cents }
         }
