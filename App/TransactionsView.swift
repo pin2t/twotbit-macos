@@ -69,7 +69,7 @@ struct TransactionCard: View {
                     .frame(width: 110, alignment: .leading)
                     .help(tx.time == 0 ? "" : Date(timeIntervalSince1970: TimeInterval(tx.time)).formatted(date: .abbreviated, time: .shortened))
                 HStack(spacing: 4) {
-                    Text(tx.txid.hex)
+                    Text(Format.groupAddress(tx.txid.hex))
                         .font(.system(.callout, design: .monospaced))
                         .lineLimit(1)
                         .truncationMode(.middle)
