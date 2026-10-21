@@ -6,7 +6,7 @@ import Testing
 /// TWOTBIT_DEMO_DIR: synced from a mock node, with payments received over
 /// the past weeks, a payment sent with change, and one unconfirmed payment
 /// on the way. Its recovery phrase is the BIP84 test vector's, left in the
-/// database as bitfyn keeps it, so the app moves it to the Keychain.
+/// database, so the app moves it to the Keychain.
 @Suite struct DemoWallet {
     @Test(.enabled(if: ProcessInfo.processInfo.environment["TWOTBIT_DEMO_DIR"] != nil))
     func build() async throws {

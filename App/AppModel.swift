@@ -4,7 +4,7 @@ import Observation
 import SwiftUI
 import TwotbitKit
 
-/// LaunchOptions are the command line options, as bitfyn's flags: -net,
+/// LaunchOptions are the command line options: -net,
 /// -datadir, -peer, -i2psam and -torproxy, read through the argument domain
 /// of the user defaults, where -net also persists the network chosen in the
 /// settings.

@@ -3,7 +3,7 @@ import Foundation
 import Testing
 @testable import TwotbitKit
 
-/// The tables of bitfyn's GUI and rates tests.
+/// The tables of the reference GUI and rates tests.
 @Suite struct FormatTests {
     @Test func amounts() {
         let cases: [(Int64, String)] = [

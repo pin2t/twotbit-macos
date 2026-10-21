@@ -4,7 +4,7 @@ import CoreImage.CIFilterBuiltins
 import Foundation
 
 /// QRCode is the module matrix of the QR code of a text at an error
-/// correction level, M as bitfyn's receive codes use unless told, read
+/// correction level, M for receive codes unless told, read
 /// from CoreImage's encoder and set upright.
 public struct QRCode: Equatable, Sendable {
     /// One CoreImage context for every code: contexts are costly to make

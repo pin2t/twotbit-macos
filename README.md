@@ -4,11 +4,6 @@ A native macOS SPV Bitcoin wallet in SwiftUI: BIP84 keys, a fully
 validated block header chain, BIP157/158 compact block filters and a small
 pool of P2P peers, reached directly or over Tor and I2P.
 
-Twotbit is a rebuild of [bitfyn](https://github.com/pin2t/bitfyn), the Go
-and Fyne wallet, as a Mac app. The wallet engine is a Swift port of
-bitfyn's, checked value for value against it, and the interface follows
-its window section by section.
-
 ## Features
 
 - **HD wallet**: a 12-word BIP39 recovery phrase and BIP84 native segwit
@@ -80,38 +75,6 @@ run locally get a new signature with every build, so after a rebuild macOS
 asks once whether Twotbit may read its Keychain item. Choosing your team
 under Signing & Capabilities keeps the signature stable and avoids that.
 
-### Moving a bitfyn wallet over
-
-Twotbit uses bitfyn's database schema. To continue with an unencrypted
-bitfyn wallet, quit both apps and copy the database across, such as
-`~/.bitfyn/bitfyn.db` to `~/Library/Application Support/Twotbit/twotbit.db`
-(`bitfyn-signet.db` to `twotbit-signet.db`, and so on). On first open the
-phrase moves from the database into the Keychain; the synced headers,
-filters and transactions carry over.
-
-## How it differs from bitfyn
-
-- The window is a native Mac app: a sidebar for bitfyn's tabs, a sortable
-  table for coins, sheets for Receive and Send, the connection status in the
-  toolbar, and menu commands with shortcuts.
-- The recovery phrase lives in the Keychain rather than in the database; a
-  SQLCipher passphrase (`-dbpass`) is no longer needed. Settings adds the
-  network switch, the account public key (zpub/vpub), the data folder and
-  the recovery phrase.
-- Tor goes through a local Tor client's SOCKS5 proxy instead of a Tor client
-  compiled into the app, with stream isolation per peer.
-- Header validation is stricter, matching Bitcoin Core: every header must
-  carry exactly the required difficulty and stay within the network's work
-  limit, and a reorganisation is taken only for a branch with more proof of
-  work.
-- Fixed while porting: after a peer dropped during the filter sync, bitfyn
-  checked the remaining peers' filters against the wrong peer's filter
-  hashes.
-- QR codes are drawn dark on light with a quiet zone in both appearances,
-  so every scanner reads them.
-- Not ported: the `-check` smoke mode and the developer tools (`gentx`,
-  `btcnodes`, `hdwalk`).
-
 ## Layout
 
 ```
@@ -137,12 +100,12 @@ Scripts/make-icon.swift  draws the app icon
 `make test` runs 80-odd tests in a few seconds:
 
 - crypto, encoding, BIP39/BIP32/BIP84, coin selection and signing against
-  vectors generated from bitfyn and btcd — signed transactions match bitfyn
-  byte for byte;
+  vectors generated from a Go reference implementation and btcd — signed
+  transactions match the reference byte for byte;
 - network parameters, difficulty and retargets, the first 4100 mainnet
   headers, GCS filters of real blocks, bloom filters, block verification
   and every wire message btcd writes;
-- the database, wallet loading and the Keychain migration of bitfyn
+- the database, wallet loading and the Keychain migration of older
   databases;
 - end-to-end syncs against in-process mock Bitcoin nodes over local TCP:
   payments and spends, a lying peer outvoted by the full block, relayed and
@@ -152,8 +115,8 @@ Scripts/make-icon.swift  draws the app icon
 Opt-in tests, set by environment variables:
 
 ```sh
-# validate whole stored chains, read-only, such as bitfyn's
-TWOTBIT_CHAIN_DB="mainnet=$HOME/.bitfyn/bitfyn.db" swift test --package-path Core -c release --filter realChains
+# validate whole stored chains, read-only
+TWOTBIT_CHAIN_DB="mainnet=$HOME/Library/Application Support/Twotbit/twotbit.db" swift test --package-path Core -c release --filter realChains
 # sync a fresh wallet from the real network
 TWOTBIT_LIVE=signet swift test --package-path Core -c release --filter LiveTests
 # build a demo regtest wallet to open with -net regtest -datadir <dir>

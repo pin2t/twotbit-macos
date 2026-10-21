@@ -1,4 +1,4 @@
-// Generated from bitfyn's internal/p2p/onionseeds.go (btcnodes.io snapshot of 2026-10-04).
+// Generated from a btcnodes.io snapshot of 2026-10-04.
 
 extension Seeds {
     /// A random sample of 200 of the reachable mainnet onion nodes serving full
