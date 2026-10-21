@@ -50,8 +50,8 @@ let outside = Script.p2wpkh(Data(repeating: 0x42, count: 20))
         }
     }
 
-    /// The history and balances of wallets of four scripts match bitfyn's
-    /// for payments, spends, self transfers, coinbases and pending ones.
+    /// The history and balances of wallets of four scripts match the
+    /// reference's for payments, spends, self transfers, coinbases and pending ones.
     @Test func historiesAndBalances() throws {
         for v in Self.fixture.histories {
             var w = WalletState()

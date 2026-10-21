@@ -1,8 +1,8 @@
 import Foundation
 @testable import TwotbitKit
 
-/// Fixtures loads the test vectors generated from the Go bitfyn and btcd
-/// code (see Fixtures/README.md).
+/// Fixtures loads the test vectors generated from the Go reference and
+/// btcd code (see Fixtures/README.md).
 enum Fixtures {
     static func url(_ name: String, _ ext: String) -> URL {
         guard let url = Bundle.module.url(forResource: name, withExtension: ext, subdirectory: "Fixtures") else {

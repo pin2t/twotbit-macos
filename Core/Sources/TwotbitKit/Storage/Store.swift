@@ -4,7 +4,7 @@ import Synchronization
 /// WalletMeta is the single wallet metadata row: the network, the account
 /// xpub, when the wallet was created and the next receive index. The
 /// recovery phrase lives in the Keychain; the mnemonic column holds it only
-/// in a database brought over from bitfyn, until it is moved there.
+/// in an older database, until it is moved there.
 public struct WalletMeta: Sendable, Equatable {
     public var mnemonic: String
     public var xpub: String
@@ -90,10 +90,9 @@ public struct Rate: Sendable, Equatable {
     }
 }
 
-/// Store keeps the wallet in an SQLite database, with the same schema as
-/// bitfyn's: the wallet metadata and addresses, the validated header chain,
-/// filter headers and matches, wallet transactions, known peers, rates and
-/// settings. Calls are serialized; it is safe to use from any thread.
+/// Store keeps the wallet in an SQLite database: the wallet metadata and
+/// addresses, the validated header chain, filter headers and matches, wallet
+/// transactions, known peers, rates and settings. Calls are serialized; it is safe to use from any thread.
 public final class Store: Sendable {
     /// The settings keys: the pinned peer's host:port, and "on" while Tor or
     /// I2P is on.

@@ -2,7 +2,7 @@ import Foundation
 import os
 import Synchronization
 
-/// Log records what the wallet does, as bitfyn's log.Printf lines: to the
+/// Log records what the wallet does: to the
 /// unified log, where addresses and ids stay private, and to twotbit.log in
 /// the data directory once a file is set.
 public enum Log {

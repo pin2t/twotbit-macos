@@ -160,9 +160,9 @@ func withTempStore<T>(_ body: (Store, URL) throws -> T) throws -> T {
         reopened.store.close()
     }
 
-    /// A database brought over from bitfyn, its mnemonic in the meta row,
-    /// opens and has the mnemonic moved into the secret store.
-    @Test func bitfynDatabase() throws {
+    /// An older database, its mnemonic in the meta row, opens and has the
+    /// mnemonic moved into the secret store.
+    @Test func mnemonicInDatabase() throws {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent("twotbit-test-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: dir) }
         let store = try Store.open(path: dir.appendingPathComponent("twotbit-testnet.db").path)
@@ -180,9 +180,10 @@ func withTempStore<T>(_ body: (Store, URL) throws -> T) throws -> T {
         opened.store.close()
     }
 
-    /// Validates every header of real chains stored by bitfyn, with the
-    /// full rules: TWOTBIT_CHAIN_DB lists network=path pairs, such as
-    /// mainnet=$HOME/.bitfyn/bitfyn.db, separated by commas. The databases
+    /// Validates every header of real stored chains, with the full rules:
+    /// TWOTBIT_CHAIN_DB lists network=path pairs, such as
+    /// mainnet=$HOME/Library/Application Support/Twotbit/twotbit.db,
+    /// separated by commas. The databases
     /// are opened immutable and only their headers are read.
     @Test(.enabled(if: ProcessInfo.processInfo.environment["TWOTBIT_CHAIN_DB"] != nil))
     func realChains() throws {

@@ -1,7 +1,7 @@
 # Test fixtures
 
-Generated from the Go implementation this wallet was ported from, bitfyn,
-and the btcd libraries it builds on, so the Swift code is checked against
+Generated from the Go implementation this wallet was ported from and the
+btcd libraries it builds on, so the Swift code is checked against
 them value for value:
 
 - `wallet.json` — BIP39 mnemonics and seeds, BIP84 addresses and account

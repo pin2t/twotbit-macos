@@ -13,8 +13,7 @@ public struct AmountError: Error, Equatable, Sendable, CustomStringConvertible {
     init(_ description: String) { self.description = description }
 }
 
-/// Format renders and reads the amounts, times and texts the wallet shows,
-/// as bitfyn's GUI does.
+/// Format renders and reads the amounts, times and texts the wallet shows.
 public enum Format {
     public static let satsPerBTC: Int64 = 100_000_000
     /// The amount from which balances are shown in BTC instead of sats:

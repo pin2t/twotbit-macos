@@ -1,9 +1,8 @@
 import SwiftUI
 import TwotbitKit
 
-/// RootView is the window: the sections in a sidebar, as bitfyn's tabs run
-/// down the left of its window, the connectivity in the toolbar, and the
-/// Receive and Send sheets.
+/// RootView is the window: the sections in a sidebar, the connectivity in
+/// the toolbar, and the Receive and Send sheets.
 struct RootView: View {
     @Environment(AppModel.self) private var model
     @State private var width: CGFloat = 0
